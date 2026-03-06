@@ -1,0 +1,37 @@
+name: 横盘爆发监视器 (USDT Perpetuals)
+
+on:
+  workflow_dispatch:  # 允许您手动点击触发
+  schedule:
+    # 每天北京时间 12:00 和 20:00 巡检一次 (UTC 时间 04:00 和 12:00)
+    - cron: '0 4,12 * * *'
+
+jobs:
+  run-sideways-scanner:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: 将代码迁出至虚拟机
+      uses: actions/checkout@v3
+
+    - name: 设置稳定的 Python 环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: 安装基础引擎依赖 (requests)
+      run: pip install requests
+
+    - name: 启动扫描核心并拉取横盘标的
+      env:
+        # 这里注入您刚刚贴出的极品 Worker 伪装节点
+        BINANCE_BASE_URL: https://binance.794988.xyz
+      run: |
+        python sideways_scanner.py
+
+    - name: (可选步骤) 将生成的 sideways_report.md 发送到钉钉/飞书
+      run: |
+        # 这一步可以接上您的飞书/提醒 API。
+        # 这里是一段演示代码，您可以随时根据通知系统补充逻辑：
+        # echo "横盘报告完毕！可以通过 actions 控制台查看 report 文件。"
+        # cat sideways_report.md
