@@ -1,0 +1,49 @@
+name: 'Setup Tor for Binance Access'
+description: '安装并配置 Tor 匿名网络，锁定非美出口节点，用于绕过币安 451 地区封锁'
+
+inputs:
+  exit-nodes:
+    description: '允许的 Tor 出口节点国家代码 (逗号分隔)'
+    required: false
+    default: '{de},{fr},{jp},{sg},{gb},{nl},{ch},{se},{kr}'
+  max-wait-seconds:
+    description: 'Tor 启动最大等待时间（秒）'
+    required: false
+    default: '120'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Tor
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y tor curl
+
+    - name: Configure exit nodes and restart
+      shell: bash
+      run: |
+        echo 'ExitNodes ${{ inputs.exit-nodes }}' | sudo tee -a /etc/tor/torrc
+        echo 'StrictNodes 1' | sudo tee -a /etc/tor/torrc
+        sudo systemctl restart tor
+
+    - name: Wait for Tor circuit to establish
+      shell: bash
+      run: |
+        MAX_ROUNDS=$(( ${{ inputs.max-wait-seconds }} / 2 ))
+        echo ">>> Waiting for Tor to bootstrap (max ${{ inputs.max-wait-seconds }}s)..."
+        TOR_READY=false
+        for i in $(seq 1 $MAX_ROUNDS); do
+          if curl -s --socks5-hostname 127.0.0.1:9050 --connect-timeout 5 https://check.torproject.org/api/ip 2>/dev/null | grep -q '"IsTor":true'; then
+            TOR_READY=true
+            echo ">>> Tor circuit established! Exit node info:"
+            curl -s --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip 2>/dev/null
+            break
+          fi
+          echo ">>> Bootstrapping... ($i/$MAX_ROUNDS, waiting 2s)"
+          sleep 2
+        done
+
+        if [ "$TOR_READY" = false ]; then
+          echo ">>> [WARNING] Tor bootstrap timed out, will attempt to proceed anyway..."
+        fi

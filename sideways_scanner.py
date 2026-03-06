@@ -1,58 +1,21 @@
-import requests
+"""
+sideways_scanner.py — 币安 USDT 永续合约横盘扫描引擎
+
+纯业务逻辑，网络层全部委托给 binance_gateway.py。
+"""
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 from datetime import datetime, timedelta
-import os
 
-USE_TOR = os.environ.get("USE_TOR") == "true"
-# 如果使用 Tor，直接连接官方。如果在本地测试则使用您的代理。
-BASE_URL = "https://fapi.binance.com" if USE_TOR else os.environ.get("BINANCE_BASE_URL", "https://binance.794988.xyz")
-
-def get_session():
-    s = requests.Session()
-    if USE_TOR:
-        s.proxies = {'http': 'socks5h://127.0.0.1:9050', 'https': 'socks5h://127.0.0.1:9050'}
-    s.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
-    return s
-
-_session = get_session()
+from binance_gateway import get_all_usdt_perpetuals, fetch_klines, USE_TOR
 
 # ================= 配置偏好 =================
-INTERVAL = "1h"            # 监测的K线级别 (1小时级别最适合量化横盘突破)
+INTERVAL = "1h"            # 监测的K线级别
 LIMIT = 200                # 最大追溯范围 (200根K线，约 8 天)
-AMPLITUDE_THRESHOLD = 0.02 # 振幅收敛阈值 (2%): 区间最高价与最低价之差不超过 2%
+AMPLITUDE_THRESHOLD = 0.02 # 振幅收敛阈值 (2%)
 # ============================================
 
-def get_all_usdt_perpetuals():
-    url = f"{BASE_URL}/fapi/v1/exchangeInfo"
-
-    # 最多重试 3 次，应对 Tor 隧道尚不稳定的情况
-    for attempt in range(1, 4):
-        try:
-            print(f"  [尝试 {attempt}/3] 正在请求 exchangeInfo...")
-            res = _session.get(url, timeout=60)
-            res.raise_for_status()
-            data = res.json()
-            return data  # 成功就直接返回原始 JSON
-        except Exception as e:
-            print(f"  [尝试 {attempt}/3] 失败: {e}")
-            if attempt < 3:
-                print(f"  等待 15 秒后重试...")
-                time.sleep(15)
-
-    print("获取 exchangeInfo 彻底失败，已耗尽所有重试机会。")
-    return []
-
-def fetch_klines(symbol):
-    """拉取单个币种的 K 线数据"""
-    url = f"{BASE_URL}/fapi/v1/klines?symbol={symbol}&interval={INTERVAL}&limit={LIMIT}"
-    try:
-        res = _session.get(url, timeout=30)
-        if res.status_code == 200:
-            return symbol, res.json()
-    except:
-        pass
-    return symbol, None
 
 def calc_sideways(klines, threshold=AMPLITUDE_THRESHOLD):
     """
@@ -76,10 +39,8 @@ def calc_sideways(klines, threshold=AMPLITUDE_THRESHOLD):
         temp_high = max(current_high, high_price)
         temp_low = min(current_low, low_price)
 
-        # 计算当前探测窗口的总振幅
         amp = (temp_high - temp_low) / temp_low if temp_low > 0 else 0
 
-        # 振幅超标，意味着不在这个横盘收敛区间了，停止追溯
         if amp > threshold:
             break
 
@@ -88,28 +49,23 @@ def calc_sideways(klines, threshold=AMPLITUDE_THRESHOLD):
         duration += 1
 
     final_amp = (current_high - current_low) / current_low if duration > 0 and current_low > 0 else 0
-    current_price = float(klines[-1][4]) # 最新收盘价
+    current_price = float(klines[-1][4])
 
     return duration, final_amp, current_price
 
+
+def _fetch_klines_wrapper(symbol):
+    """对 gateway 的 fetch_klines 做一层包装，传入本扫描器的配置参数"""
+    return fetch_klines(symbol, interval=INTERVAL, limit=LIMIT)
+
+
 def main():
-    # 注意：运行在云端需显式调整为北京时间
     bj_time = datetime.utcnow() + timedelta(hours=8)
     print(f"[{bj_time.strftime('%Y-%m-%d %H:%M:%S')}] (北京时间) 开始获取全网 USDT 永续合约列表...")
 
-    exchange_data = get_all_usdt_perpetuals()
-    if not exchange_data:
-        print("未能获取到合约列表，程序退出。请检查网络隧道状态。")
-        return
-
-    # 从原始 JSON 中筛选出 交易中 的 USDT 永续合约
-    symbols = []
-    for s in exchange_data.get('symbols', []):
-        if s['quoteAsset'] == 'USDT' and s['contractType'] == 'PERPETUAL' and s['status'] == 'TRADING':
-            symbols.append(s['symbol'])
-
+    symbols = get_all_usdt_perpetuals()
     if not symbols:
-        print("过滤后无符合条件的永续合约，程序退出。")
+        print("未能获取到合约列表，程序退出。请检查网络隧道状态。")
         return
 
     print(f"共获取到 {len(symbols)} 个活跃合约，启动 20 线程并发拉取引擎...")
@@ -117,9 +73,8 @@ def main():
     results = []
     start_time = time.time()
 
-    # 并发提速拉取 300+ 币种K线
     with ThreadPoolExecutor(max_workers=20) as executor:
-        futures = {executor.submit(fetch_klines, sym): sym for sym in symbols}
+        futures = {executor.submit(_fetch_klines_wrapper, sym): sym for sym in symbols}
 
         count = 0
         for future in as_completed(futures):
@@ -146,12 +101,13 @@ def main():
     results.sort(key=lambda x: x["duration"], reverse=True)
 
     # 写入 Markdown 报告
+    tunnel_info = "Tor 匿名网络 (德国/日本等出口)" if USE_TOR else "Cloudflare Worker 反代"
     report_path = "sideways_report.md"
     with open(report_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("# 📊 币安 USDT 永续合约【极佳横盘猎手】榜单\n\n")
         f.write(f"> **生成时间**: {bj_time.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
         f.write(f"> **运算规则**: 追溯过去 {LIMIT} 根 1小时K线，筛选价格被严格压制在 **{AMPLITUDE_THRESHOLD*100}%** 振幅内的标的。\n")
-        f.write(f"> **网络隧道**: `{'Tor 匿名网络 (德国/日本等出口)' if USE_TOR else BASE_URL}`\n\n")
+        f.write(f"> **网络隧道**: `{tunnel_info}`\n\n")
 
         f.write("| 排名 | 合约标的 | 横盘时长 (小时) | 极致压缩振幅 | 当前价格 | TradingView |\n")
         f.write("|---|---|---|---|---|---|\n")
@@ -164,7 +120,6 @@ def main():
             dur = r["duration"]
             amp = f'{r["amplitude"] * 100:.2f}%'
             price = f'${r["price"]:g}'
-            # 提供直接点开看图的快捷链接
             link = f"[K线直达](https://www.binance.com/zh-CN/futures/{sym})"
 
             if i < 3:

@@ -1,9 +1,8 @@
 name: 横盘爆发监视器 (USDT Perpetuals)
 
 on:
-  workflow_dispatch:  # 允许您手动点击触发
+  workflow_dispatch:
   schedule:
-    # 每天北京时间 12:00 和 20:00 巡检一次 (UTC 时间 04:00 和 12:00)
     - cron: '0 4,12 * * *'
 
 jobs:
@@ -14,46 +13,21 @@ jobs:
     - name: 将代码迁出至虚拟机
       uses: actions/checkout@v3
 
-    - name: 设置稳定的 Python 环境
+    - name: 设置 Python 环境
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
 
-    - name: 安装基础引擎依赖
+    - name: 安装依赖
       run: pip install requests pysocks
 
-    - name: 初始化暗网路由协议 (Tor) 并强制非美节点出口
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y tor curl
-        # 扩大出口节点池：德国/法国/日本/新加坡/英国/荷兰/瑞士/瑞典/韩国
-        echo 'ExitNodes {de},{fr},{jp},{sg},{gb},{nl},{ch},{se},{kr}' | sudo tee -a /etc/tor/torrc
-        echo 'StrictNodes 1' | sudo tee -a /etc/tor/torrc
-        sudo systemctl restart tor
+    - name: 初始化 Tor 匿名隧道
+      uses: ./.github/actions/setup-tor
 
-        # === 关键修复：主动轮询等待 Tor 完成洋葱路由三层握手 (最多 120 秒) ===
-        echo ">>> Waiting for Tor to bootstrap..."
-        TOR_READY=false
-        for i in $(seq 1 60); do
-          if curl -s --socks5-hostname 127.0.0.1:9050 --connect-timeout 5 https://check.torproject.org/api/ip 2>/dev/null | grep -q '"IsTor":true'; then
-            TOR_READY=true
-            echo ">>> Tor circuit established! Exit IP:"
-            curl -s --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip 2>/dev/null
-            break
-          fi
-          echo ">>> Bootstrapping... ($i/60, waiting 2s)"
-          sleep 2
-        done
-
-        if [ "$TOR_READY" = false ]; then
-          echo ">>> [WARNING] Tor bootstrap timed out after 120s, will try anyway..."
-        fi
-
-    - name: 启动扫描核心并拉取横盘标的
+    - name: 启动横盘扫描引擎
       env:
         USE_TOR: "true"
-      run: |
-        python sideways_scanner.py
+      run: python sideways_scanner.py
 
     - name: 在日志中输出完整横盘榜单
       run: |
