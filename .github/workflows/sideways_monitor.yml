@@ -8,6 +8,8 @@ on:
 jobs:
   run-sideways-scanner:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
 
     steps:
     - name: 将代码迁出至虚拟机
@@ -44,3 +46,12 @@ jobs:
         name: sideways-report
         path: sideways_report.md
         retention-days: 30
+
+    - name: 保存历史异动数据到代码库
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        if [ -f sideways_history.json ]; then
+          git add sideways_history.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(history): update sideways scanner history [skip ci]" && git push)
+        fi

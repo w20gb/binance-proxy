@@ -8,6 +8,7 @@ sideways_scanner.py — 币安 USDT 永续合约横盘扫描引擎
 import os
 import time
 import requests
+import json
 import pandas as pd
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -37,6 +38,27 @@ BLACKLIST = {
     "FOOTBALLUSDT", # 足球粉丝代币指数
 }
 # =========================================================
+
+HISTORY_FILE = "sideways_history.json"
+
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def save_history(valid_results):
+    history = {}
+    for i, r in enumerate(valid_results[:25]):
+        history[r["symbol"]] = {"rank": i + 1}
+    try:
+        with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(history, f, indent=4)
+    except Exception as e:
+        print(f"保存历史记录失败: {e}")
 
 
 def calc_bollinger_squeeze(klines):
@@ -110,6 +132,8 @@ def notify_feishu(valid_results, bj_time):
     else:
          md_lines.append("\n🏆 **【极佳横盘猎手: 布林带收敛榜】(按时长降序)**\n")
 
+         history = load_history()
+
          # 飞书卡片篇幅有限，最多推送前 25 名最极致的
          for i, r in enumerate(valid_results[:25]):
              sym = r["symbol"]
@@ -118,8 +142,21 @@ def notify_feishu(valid_results, bj_time):
              price = f'${r["price"]:g}'
              link = f"[{sym}](https://www.coinglass.com/tv/zh/Binance_{sym})"
 
+             curr_rank = i + 1
+             trend_icon = "➖"
+             if sym not in history:
+                 trend_icon = "🆕" # 新晋榜单
+             else:
+                 prev_rank = history[sym].get("rank", 999)
+                 if curr_rank < prev_rank:
+                     trend_icon = "⬆️" # 排名上升
+                 elif curr_rank > prev_rank:
+                     trend_icon = "⬇️" # 排名下降
+                 else:
+                     trend_icon = "➖" # 排名持平
+
              medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f" {i+1}."
-             md_lines.append(f"{medal} **{link}** | **{dur}** 根缩圈 | 现 BBW {amp} | 现价 {price}")
+             md_lines.append(f"{medal} **{link}** {trend_icon} | **{dur}** 根缩圈 | 现 BBW {amp} | 现价 {price}")
 
          if len(valid_results) > 25:
              md_lines.append(f"\n*(共有 {len(valid_results)} 个币满足条件，这里仅展示前25名)*")
@@ -227,6 +264,9 @@ def main():
 
     # 2. 推送到飞书
     notify_feishu(valid_results, bj_time)
+
+    # 3. 覆盖写入本次历史记录，供下次执行作对比
+    save_history(valid_results)
 
 if __name__ == "__main__":
     main()
