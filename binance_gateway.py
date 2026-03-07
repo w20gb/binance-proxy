@@ -1,7 +1,8 @@
 """
 binance_gateway.py — 币安数据通用网关模块
 
-提供统一的、带有 Tor 穿透和容错机制的币安 API 访问能力。
+提供统一的、带容错机制的币安 API 访问能力。
+默认通过 Vercel Edge 东京反代（AWS hnd1 节点）访问，Tor 作为备用方案。
 所有需要币安数据的脚本只需:
     from binance_gateway import create_session, fetch_json, get_all_usdt_perpetuals, fetch_klines
 """
@@ -11,10 +12,16 @@ import time
 import requests
 
 # ============ 网络配置 ============
+# 优先级：环境变量 > Vercel 反代（默认） > Tor 直连（备用）
+VERCEL_PROXY = "https://bn-proxy-tokyo.vercel.app"
 USE_TOR = os.environ.get("USE_TOR") == "true"
-# Tor 模式下直连官方；否则走用户自定义的反代节点
-FAPI_BASE = "https://fapi.binance.com" if USE_TOR else os.environ.get("BINANCE_FAPI_URL", "https://binance.794988.xyz")
-API_BASE  = "https://api.binance.com"  if USE_TOR else os.environ.get("BINANCE_API_URL",  "https://binance.794988.xyz")
+
+if USE_TOR:
+    FAPI_BASE = "https://fapi.binance.com"
+    API_BASE  = "https://api.binance.com"
+else:
+    FAPI_BASE = os.environ.get("BINANCE_FAPI_URL", VERCEL_PROXY)
+    API_BASE  = os.environ.get("BINANCE_API_URL",  VERCEL_PROXY)
 
 _DEFAULT_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
@@ -24,6 +31,7 @@ def create_session():
     创建一个预配置的 requests.Session。
     - 如果环境变量 USE_TOR=true，自动挂载 socks5h 代理。
     - 全局注入伪装 User-Agent。
+    - 显式声明 Accept-Encoding 防止 brotli 解码异常。
     """
     s = requests.Session()
     if USE_TOR:
@@ -31,7 +39,10 @@ def create_session():
             "http":  "socks5h://127.0.0.1:9050",
             "https": "socks5h://127.0.0.1:9050",
         }
-    s.headers.update({"User-Agent": _DEFAULT_UA})
+    s.headers.update({
+        "User-Agent": _DEFAULT_UA,
+        "Accept-Encoding": "gzip, deflate",
+    })
     return s
 
 

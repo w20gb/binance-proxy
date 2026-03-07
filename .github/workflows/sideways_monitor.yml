@@ -19,14 +19,9 @@ jobs:
         python-version: '3.11'
 
     - name: 安装依赖
-      run: pip install requests pysocks
+      run: pip install requests
 
-    - name: 初始化 Tor 匿名隧道
-      uses: ./.github/actions/setup-tor
-
-    - name: 启动横盘扫描引擎
-      env:
-        USE_TOR: "true"
+    - name: 启动横盘扫描引擎 (通过 Vercel 东京反代)
       run: python sideways_scanner.py
 
     - name: 在日志中输出完整横盘榜单
