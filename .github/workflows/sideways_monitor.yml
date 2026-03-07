@@ -3,7 +3,7 @@ name: 横盘爆发监视器 (USDT Perpetuals)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '0 * * * *'
 
 jobs:
   run-sideways-scanner:
