@@ -106,7 +106,7 @@ def notify_feishu(valid_results, bj_time):
              dur = r["duration"]
              amp = f'{r["amplitude"] * 100:.2f}%'
              price = f'${r["price"]:g}'
-             link = f"[{sym}](https://www.binance.com/zh-CN/futures/{sym})"
+             link = f"[{sym}](https://www.coinglass.com/tv/Binance_{sym})"
 
              medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f" {i+1}."
              md_lines.append(f"{medal} **{link}** | **{dur}** 根缩圈 | 现 BBW {amp} | 现价 {price}")
@@ -204,7 +204,7 @@ def main():
             dur = r["duration"]
             amp = f'{r["amplitude"] * 100:.2f}%'
             price = f'${r["price"]:g}'
-            link = f"[直达](https://www.binance.com/zh-CN/futures/{sym})"
+            link = f"[直达](https://www.coinglass.com/tv/Binance_{sym})"
             f.write(f"| {i+1} | **{sym}** | **{dur}** | {amp} | {price} | {link} |\n")
 
         if not valid_results:
