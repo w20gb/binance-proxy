@@ -2,76 +2,76 @@
     "TRXUSDT": {
         "rank": 1
     },
-    "AWEUSDT": {
+    "KAIAUSDT": {
         "rank": 2
     },
-    "KAIAUSDT": {
+    "SPELLUSDT": {
         "rank": 3
     },
-    "SPELLUSDT": {
+    "OGUSDT": {
         "rank": 4
     },
-    "OGUSDT": {
+    "ATUSDT": {
         "rank": 5
     },
-    "ATUSDT": {
+    "HIVEUSDT": {
         "rank": 6
     },
-    "HIVEUSDT": {
+    "HYPERUSDT": {
         "rank": 7
     },
-    "HYPERUSDT": {
+    "FFUSDT": {
         "rank": 8
     },
-    "FFUSDT": {
+    "EDUUSDT": {
         "rank": 9
     },
-    "EDUUSDT": {
+    "PAXGUSDT": {
         "rank": 10
     },
-    "PAXGUSDT": {
+    "AEVOUSDT": {
         "rank": 11
     },
-    "AEVOUSDT": {
+    "SFPUSDT": {
         "rank": 12
     },
-    "DOLOUSDT": {
+    "HMSTRUSDT": {
         "rank": 13
     },
-    "SFPUSDT": {
+    "B2USDT": {
         "rank": 14
     },
-    "DEXEUSDT": {
+    "RECALLUSDT": {
         "rank": 15
     },
-    "HMSTRUSDT": {
+    "1000XECUSDT": {
         "rank": 16
     },
-    "B2USDT": {
+    "WAXPUSDT": {
         "rank": 17
     },
-    "RECALLUSDT": {
+    "TWTUSDT": {
         "rank": 18
     },
-    "1000XECUSDT": {
+    "AUCTIONUSDT": {
         "rank": 19
     },
-    "WAXPUSDT": {
+    "MANTAUSDT": {
         "rank": 20
     },
-    "TWTUSDT": {
+    "POWRUSDT": {
         "rank": 21
     },
-    "AUCTIONUSDT": {
+    "POLYXUSDT": {
         "rank": 22
     },
-    "MANTAUSDT": {
+    "NIGHTUSDT": {
         "rank": 23
     },
-    "POWRUSDT": {
+    "LUNA2USDT": {
         "rank": 24
     },
-    "POLYXUSDT": {
+    "THEUSDT": {
         "rank": 25
     }
 }
