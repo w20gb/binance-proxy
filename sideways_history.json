@@ -32,10 +32,10 @@
     "1000XECUSDT": {
         "rank": 11
     },
-    "WAXPUSDT": {
+    "TWTUSDT": {
         "rank": 12
     },
-    "TWTUSDT": {
+    "WAXPUSDT": {
         "rank": 13
     },
     "POLYXUSDT": {
@@ -44,34 +44,34 @@
     "NIGHTUSDT": {
         "rank": 15
     },
-    "LUNA2USDT": {
+    "THEUSDT": {
         "rank": 16
     },
-    "THEUSDT": {
+    "IOTAUSDT": {
         "rank": 17
     },
-    "IOTAUSDT": {
+    "ARKUSDT": {
         "rank": 18
     },
-    "ARKUSDT": {
+    "MINAUSDT": {
         "rank": 19
     },
-    "MINAUSDT": {
+    "SONICUSDT": {
         "rank": 20
     },
-    "SONICUSDT": {
+    "KASUSDT": {
         "rank": 21
     },
-    "KASUSDT": {
+    "JSTUSDT": {
         "rank": 22
     },
-    "JSTUSDT": {
+    "YFIUSDT": {
         "rank": 23
     },
-    "YFIUSDT": {
+    "SPKUSDT": {
         "rank": 24
     },
-    "SPKUSDT": {
+    "TONUSDT": {
         "rank": 25
     }
 }
