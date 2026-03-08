@@ -53,25 +53,25 @@
     "POLYXUSDT": {
         "rank": 18
     },
-    "POWRUSDT": {
+    "NIGHTUSDT": {
         "rank": 19
     },
-    "NIGHTUSDT": {
+    "LUNA2USDT": {
         "rank": 20
     },
-    "LUNA2USDT": {
+    "THEUSDT": {
         "rank": 21
     },
-    "THEUSDT": {
+    "IOTAUSDT": {
         "rank": 22
     },
-    "IOTAUSDT": {
+    "ARKUSDT": {
         "rank": 23
     },
-    "ARKUSDT": {
+    "JASMYUSDT": {
         "rank": 24
     },
-    "JASMYUSDT": {
+    "MINAUSDT": {
         "rank": 25
     }
 }
