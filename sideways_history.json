@@ -26,10 +26,10 @@
     "1000XECUSDT": {
         "rank": 9
     },
-    "TWTUSDT": {
+    "WAXPUSDT": {
         "rank": 10
     },
-    "WAXPUSDT": {
+    "TWTUSDT": {
         "rank": 11
     },
     "POLYXUSDT": {
@@ -59,19 +59,19 @@
     "YFIUSDT": {
         "rank": 20
     },
-    "SPKUSDT": {
+    "TONUSDT": {
         "rank": 21
     },
-    "TONUSDT": {
+    "ASTERUSDT": {
         "rank": 22
     },
-    "ASTERUSDT": {
+    "ASRUSDT": {
         "rank": 23
     },
-    "ASRUSDT": {
+    "CCUSDT": {
         "rank": 24
     },
-    "CCUSDT": {
+    "BNBUSDT": {
         "rank": 25
     }
 }
