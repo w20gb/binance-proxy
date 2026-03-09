@@ -17,61 +17,61 @@
     "PAXGUSDT": {
         "rank": 6
     },
-    "SFPUSDT": {
+    "1000XECUSDT": {
         "rank": 7
     },
-    "HMSTRUSDT": {
+    "TWTUSDT": {
         "rank": 8
     },
-    "1000XECUSDT": {
+    "WAXPUSDT": {
         "rank": 9
     },
-    "WAXPUSDT": {
+    "POLYXUSDT": {
         "rank": 10
     },
-    "TWTUSDT": {
+    "IOTAUSDT": {
         "rank": 11
     },
-    "POLYXUSDT": {
+    "ARKUSDT": {
         "rank": 12
     },
-    "IOTAUSDT": {
+    "MINAUSDT": {
         "rank": 13
     },
-    "ARKUSDT": {
+    "SONICUSDT": {
         "rank": 14
     },
-    "MINAUSDT": {
+    "KASUSDT": {
         "rank": 15
     },
-    "SONICUSDT": {
+    "JSTUSDT": {
         "rank": 16
     },
-    "KASUSDT": {
+    "YFIUSDT": {
         "rank": 17
     },
-    "JSTUSDT": {
+    "ASTERUSDT": {
         "rank": 18
     },
-    "YFIUSDT": {
+    "ASRUSDT": {
         "rank": 19
     },
-    "TONUSDT": {
+    "CCUSDT": {
         "rank": 20
     },
-    "ASTERUSDT": {
+    "BCHUSDT": {
         "rank": 21
     },
-    "ASRUSDT": {
+    "CKBUSDT": {
         "rank": 22
     },
-    "CCUSDT": {
+    "ACHUSDT": {
         "rank": 23
     },
-    "BCHUSDT": {
+    "USTCUSDT": {
         "rank": 24
     },
-    "ACHUSDT": {
+    "GUSDT": {
         "rank": 25
     }
 }
