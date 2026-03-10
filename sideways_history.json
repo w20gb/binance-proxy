@@ -56,10 +56,10 @@
     "BCHUSDT": {
         "rank": 19
     },
-    "CKBUSDT": {
+    "ACHUSDT": {
         "rank": 20
     },
-    "ACHUSDT": {
+    "CKBUSDT": {
         "rank": 21
     },
     "USTCUSDT": {
@@ -68,10 +68,10 @@
     "GUSDT": {
         "rank": 23
     },
-    "CLANKERUSDT": {
+    "IDUSDT": {
         "rank": 24
     },
-    "IDUSDT": {
+    "ATOMUSDT": {
         "rank": 25
     }
 }
