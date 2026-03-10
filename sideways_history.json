@@ -41,37 +41,37 @@
     "KASUSDT": {
         "rank": 14
     },
-    "JSTUSDT": {
+    "YFIUSDT": {
         "rank": 15
     },
-    "YFIUSDT": {
+    "TONUSDT": {
         "rank": 16
     },
-    "TONUSDT": {
+    "ASTERUSDT": {
         "rank": 17
     },
-    "ASTERUSDT": {
+    "ASRUSDT": {
         "rank": 18
     },
-    "ASRUSDT": {
+    "BCHUSDT": {
         "rank": 19
     },
-    "BCHUSDT": {
+    "ACHUSDT": {
         "rank": 20
     },
     "CKBUSDT": {
         "rank": 21
     },
-    "ACHUSDT": {
+    "USTCUSDT": {
         "rank": 22
     },
-    "USTCUSDT": {
+    "GUSDT": {
         "rank": 23
     },
-    "GUSDT": {
+    "CLANKERUSDT": {
         "rank": 24
     },
-    "CLANKERUSDT": {
+    "IDUSDT": {
         "rank": 25
     }
 }
