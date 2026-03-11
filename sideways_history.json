@@ -23,55 +23,55 @@
     "POLYXUSDT": {
         "rank": 8
     },
-    "ARKUSDT": {
+    "MINAUSDT": {
         "rank": 9
     },
-    "MINAUSDT": {
+    "SONICUSDT": {
         "rank": 10
     },
-    "SONICUSDT": {
+    "KASUSDT": {
         "rank": 11
     },
-    "KASUSDT": {
+    "YFIUSDT": {
         "rank": 12
     },
-    "YFIUSDT": {
+    "TONUSDT": {
         "rank": 13
     },
-    "TONUSDT": {
+    "ASTERUSDT": {
         "rank": 14
     },
-    "ASTERUSDT": {
+    "ASRUSDT": {
         "rank": 15
     },
-    "ASRUSDT": {
+    "BCHUSDT": {
         "rank": 16
     },
-    "BCHUSDT": {
+    "ACHUSDT": {
         "rank": 17
     },
-    "ACHUSDT": {
+    "USTCUSDT": {
         "rank": 18
     },
-    "USTCUSDT": {
+    "GUSDT": {
         "rank": 19
     },
-    "GUSDT": {
+    "IDUSDT": {
         "rank": 20
     },
-    "IDUSDT": {
+    "LSKUSDT": {
         "rank": 21
     },
-    "LSKUSDT": {
+    "FUSDT": {
         "rank": 22
     },
-    "FUSDT": {
+    "ZILUSDT": {
         "rank": 23
     },
-    "ZILUSDT": {
+    "RVNUSDT": {
         "rank": 24
     },
-    "RVNUSDT": {
+    "PUNDIXUSDT": {
         "rank": 25
     }
 }
