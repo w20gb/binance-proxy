@@ -8,10 +8,10 @@
     "POLYXUSDT": {
         "rank": 3
     },
-    "KASUSDT": {
+    "TWTUSDT": {
         "rank": 4
     },
-    "TWTUSDT": {
+    "KASUSDT": {
         "rank": 5
     },
     "HIVEUSDT": {
@@ -62,10 +62,10 @@
     "ALLUSDT": {
         "rank": 21
     },
-    "LTCUSDT": {
+    "ONTUSDT": {
         "rank": 22
     },
-    "ONTUSDT": {
+    "LTCUSDT": {
         "rank": 23
     },
     "BLURUSDT": {
