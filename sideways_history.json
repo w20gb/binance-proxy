@@ -35,43 +35,43 @@
     "ASRUSDT": {
         "rank": 12
     },
-    "BCHUSDT": {
+    "ACHUSDT": {
         "rank": 13
     },
-    "ACHUSDT": {
+    "USTCUSDT": {
         "rank": 14
     },
-    "USTCUSDT": {
+    "IDUSDT": {
         "rank": 15
     },
-    "IDUSDT": {
+    "LSKUSDT": {
         "rank": 16
     },
-    "LSKUSDT": {
+    "RVNUSDT": {
         "rank": 17
     },
-    "RVNUSDT": {
+    "PUNDIXUSDT": {
         "rank": 18
     },
-    "PUNDIXUSDT": {
+    "GASUSDT": {
         "rank": 19
     },
-    "GASUSDT": {
+    "MEUSDT": {
         "rank": 20
     },
-    "MEUSDT": {
+    "NXPCUSDT": {
         "rank": 21
     },
-    "NXPCUSDT": {
+    "ALLUSDT": {
         "rank": 22
     },
-    "ALLUSDT": {
+    "ONTUSDT": {
         "rank": 23
     },
     "LTCUSDT": {
         "rank": 24
     },
-    "ONTUSDT": {
+    "BLURUSDT": {
         "rank": 25
     }
 }
