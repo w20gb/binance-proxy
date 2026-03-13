@@ -5,13 +5,13 @@
     "SPELLUSDT": {
         "rank": 2
     },
-    "TWTUSDT": {
+    "POLYXUSDT": {
         "rank": 3
     },
     "KASUSDT": {
         "rank": 4
     },
-    "POLYXUSDT": {
+    "TWTUSDT": {
         "rank": 5
     },
     "HIVEUSDT": {
@@ -65,10 +65,10 @@
     "ALLUSDT": {
         "rank": 22
     },
-    "LTCUSDT": {
+    "ONTUSDT": {
         "rank": 23
     },
-    "ONTUSDT": {
+    "LTCUSDT": {
         "rank": 24
     },
     "BLURUSDT": {
