@@ -11,19 +11,19 @@
     "TWTUSDT": {
         "rank": 4
     },
-    "SONICUSDT": {
+    "KASUSDT": {
         "rank": 5
     },
     "HIVEUSDT": {
         "rank": 6
     },
-    "PAXGUSDT": {
+    "SONICUSDT": {
         "rank": 7
     },
-    "HYPERUSDT": {
+    "PAXGUSDT": {
         "rank": 8
     },
-    "KASUSDT": {
+    "HYPERUSDT": {
         "rank": 9
     },
     "YFIUSDT": {
@@ -50,28 +50,28 @@
     "LSKUSDT": {
         "rank": 17
     },
-    "ZILUSDT": {
+    "RVNUSDT": {
         "rank": 18
     },
-    "RVNUSDT": {
+    "PUNDIXUSDT": {
         "rank": 19
     },
-    "PUNDIXUSDT": {
+    "GASUSDT": {
         "rank": 20
     },
-    "GASUSDT": {
+    "MEUSDT": {
         "rank": 21
     },
-    "MEUSDT": {
+    "NXPCUSDT": {
         "rank": 22
     },
-    "NXPCUSDT": {
+    "ALLUSDT": {
         "rank": 23
     },
-    "ALLUSDT": {
+    "LTCUSDT": {
         "rank": 24
     },
-    "LTCUSDT": {
+    "ONTUSDT": {
         "rank": 25
     }
 }
