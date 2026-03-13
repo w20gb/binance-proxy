@@ -26,52 +26,52 @@
     "HYPERUSDT": {
         "rank": 9
     },
-    "YFIUSDT": {
+    "ASTERUSDT": {
         "rank": 10
     },
-    "ASTERUSDT": {
+    "ASRUSDT": {
         "rank": 11
     },
-    "ASRUSDT": {
+    "ACHUSDT": {
         "rank": 12
     },
-    "ACHUSDT": {
+    "USTCUSDT": {
         "rank": 13
     },
-    "USTCUSDT": {
+    "IDUSDT": {
         "rank": 14
     },
-    "IDUSDT": {
+    "LSKUSDT": {
         "rank": 15
     },
-    "LSKUSDT": {
+    "RVNUSDT": {
         "rank": 16
     },
-    "RVNUSDT": {
+    "PUNDIXUSDT": {
         "rank": 17
     },
-    "PUNDIXUSDT": {
+    "GASUSDT": {
         "rank": 18
     },
-    "GASUSDT": {
+    "MEUSDT": {
         "rank": 19
     },
-    "MEUSDT": {
+    "NXPCUSDT": {
         "rank": 20
     },
-    "NXPCUSDT": {
+    "ALLUSDT": {
         "rank": 21
     },
-    "ALLUSDT": {
+    "LTCUSDT": {
         "rank": 22
     },
     "ONTUSDT": {
         "rank": 23
     },
-    "LTCUSDT": {
+    "BLURUSDT": {
         "rank": 24
     },
-    "BLURUSDT": {
+    "GLMUSDT": {
         "rank": 25
     }
 }
