@@ -14,28 +14,28 @@
     "MTLUSDT": {
         "rank": 5
     },
-    "GMTUSDT": {
+    "LPTUSDT": {
         "rank": 6
     },
-    "LPTUSDT": {
+    "GMTUSDT": {
         "rank": 7
     },
     "ACHUSDT": {
         "rank": 8
     },
-    "BLURUSDT": {
+    "IDUSDT": {
         "rank": 9
     },
-    "IDUSDT": {
+    "BLURUSDT": {
         "rank": 10
     },
     "POLYXUSDT": {
         "rank": 11
     },
-    "GASUSDT": {
+    "TWTUSDT": {
         "rank": 12
     },
-    "TWTUSDT": {
+    "GASUSDT": {
         "rank": 13
     },
     "KASUSDT": {
@@ -65,13 +65,13 @@
     "PAXGUSDT": {
         "rank": 22
     },
-    "AERGOUSDT": {
+    "HYPERUSDT": {
         "rank": 23
     },
-    "HYPERUSDT": {
+    "PUNDIXUSDT": {
         "rank": 24
     },
-    "PUNDIXUSDT": {
+    "AERGOUSDT": {
         "rank": 25
     }
 }
