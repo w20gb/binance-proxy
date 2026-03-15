@@ -38,40 +38,40 @@
     "USTCUSDT": {
         "rank": 13
     },
-    "ZETAUSDT": {
+    "AUCTIONUSDT": {
         "rank": 14
     },
-    "MEUSDT": {
+    "ZETAUSDT": {
         "rank": 15
     },
-    "VANAUSDT": {
+    "LSKUSDT": {
         "rank": 16
     },
-    "HIVEUSDT": {
+    "MEUSDT": {
         "rank": 17
     },
-    "SONICUSDT": {
+    "VANAUSDT": {
         "rank": 18
     },
-    "AERGOUSDT": {
+    "HIVEUSDT": {
         "rank": 19
     },
-    "PAXGUSDT": {
+    "SONICUSDT": {
         "rank": 20
     },
-    "HYPERUSDT": {
+    "PAXGUSDT": {
         "rank": 21
     },
-    "PUNDIXUSDT": {
+    "AERGOUSDT": {
         "rank": 22
     },
-    "NXPCUSDT": {
+    "HYPERUSDT": {
         "rank": 23
     },
-    "SOPHUSDT": {
+    "PUNDIXUSDT": {
         "rank": 24
     },
-    "AWEUSDT": {
+    "NXPCUSDT": {
         "rank": 25
     }
 }
