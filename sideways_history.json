@@ -1,8 +1,8 @@
 {
-    "TRXUSDT": {
+    "LTCUSDT": {
         "rank": 1
     },
-    "LTCUSDT": {
+    "TRXUSDT": {
         "rank": 2
     },
     "IOSTUSDT": {
@@ -56,10 +56,10 @@
     "VANAUSDT": {
         "rank": 19
     },
-    "HIVEUSDT": {
+    "SONICUSDT": {
         "rank": 20
     },
-    "SONICUSDT": {
+    "HIVEUSDT": {
         "rank": 21
     },
     "PAXGUSDT": {
