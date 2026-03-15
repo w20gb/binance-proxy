@@ -1,8 +1,8 @@
 {
-    "LTCUSDT": {
+    "TRXUSDT": {
         "rank": 1
     },
-    "TRXUSDT": {
+    "LTCUSDT": {
         "rank": 2
     },
     "IOSTUSDT": {
@@ -29,37 +29,37 @@
     "BLURUSDT": {
         "rank": 10
     },
-    "POLYXUSDT": {
+    "TWTUSDT": {
         "rank": 11
     },
-    "TWTUSDT": {
+    "POLYXUSDT": {
         "rank": 12
     },
     "GASUSDT": {
         "rank": 13
     },
-    "KASUSDT": {
+    "USTCUSDT": {
         "rank": 14
     },
     "SUPERUSDT": {
         "rank": 15
     },
-    "ZETAUSDT": {
+    "KASUSDT": {
         "rank": 16
     },
     "LSKUSDT": {
         "rank": 17
     },
-    "USTCUSDT": {
+    "ZETAUSDT": {
         "rank": 18
     },
-    "MEUSDT": {
+    "HIVEUSDT": {
         "rank": 19
     },
-    "VANAUSDT": {
+    "MEUSDT": {
         "rank": 20
     },
-    "HIVEUSDT": {
+    "VANAUSDT": {
         "rank": 21
     },
     "SONICUSDT": {
@@ -68,7 +68,7 @@
     "PAXGUSDT": {
         "rank": 23
     },
-    "HYPERUSDT": {
+    "AERGOUSDT": {
         "rank": 24
     },
     "PUNDIXUSDT": {
