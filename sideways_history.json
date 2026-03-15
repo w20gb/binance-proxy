@@ -14,10 +14,10 @@
     "MTLUSDT": {
         "rank": 5
     },
-    "LPTUSDT": {
+    "GMTUSDT": {
         "rank": 6
     },
-    "GMTUSDT": {
+    "LPTUSDT": {
         "rank": 7
     },
     "ACHUSDT": {
@@ -29,16 +29,16 @@
     "IDUSDT": {
         "rank": 10
     },
-    "GASUSDT": {
+    "POLYXUSDT": {
         "rank": 11
     },
-    "KASUSDT": {
+    "GASUSDT": {
         "rank": 12
     },
-    "POLYXUSDT": {
+    "TWTUSDT": {
         "rank": 13
     },
-    "TWTUSDT": {
+    "KASUSDT": {
         "rank": 14
     },
     "USTCUSDT": {
