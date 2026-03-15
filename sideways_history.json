@@ -20,10 +20,10 @@
     "LPTUSDT": {
         "rank": 7
     },
-    "IDUSDT": {
+    "ACHUSDT": {
         "rank": 8
     },
-    "ACHUSDT": {
+    "IDUSDT": {
         "rank": 9
     },
     "BLURUSDT": {
@@ -32,10 +32,10 @@
     "POLYXUSDT": {
         "rank": 11
     },
-    "TWTUSDT": {
+    "KASUSDT": {
         "rank": 12
     },
-    "KASUSDT": {
+    "TWTUSDT": {
         "rank": 13
     },
     "USTCUSDT": {
@@ -47,10 +47,10 @@
     "ZETAUSDT": {
         "rank": 16
     },
-    "VANAUSDT": {
+    "MEUSDT": {
         "rank": 17
     },
-    "MEUSDT": {
+    "VANAUSDT": {
         "rank": 18
     },
     "HIVEUSDT": {
@@ -62,16 +62,16 @@
     "PAXGUSDT": {
         "rank": 21
     },
-    "AERGOUSDT": {
+    "HYPERUSDT": {
         "rank": 22
     },
     "PUNDIXUSDT": {
         "rank": 23
     },
-    "HYPERUSDT": {
+    "AERGOUSDT": {
         "rank": 24
     },
-    "NXPCUSDT": {
+    "SOPHUSDT": {
         "rank": 25
     }
 }
