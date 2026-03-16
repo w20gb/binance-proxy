@@ -11,13 +11,13 @@
     "MTLUSDT": {
         "rank": 4
     },
-    "GMTUSDT": {
+    "ARPAUSDT": {
         "rank": 5
     },
-    "ARPAUSDT": {
+    "LPTUSDT": {
         "rank": 6
     },
-    "LPTUSDT": {
+    "GMTUSDT": {
         "rank": 7
     },
     "1000LUNCUSDT": {
@@ -41,10 +41,10 @@
     "PAXGUSDT": {
         "rank": 14
     },
-    "AERGOUSDT": {
+    "HYPERUSDT": {
         "rank": 15
     },
-    "HYPERUSDT": {
+    "AERGOUSDT": {
         "rank": 16
     },
     "PUNDIXUSDT": {
@@ -53,10 +53,10 @@
     "NXPCUSDT": {
         "rank": 18
     },
-    "B2USDT": {
+    "AWEUSDT": {
         "rank": 19
     },
-    "AWEUSDT": {
+    "B2USDT": {
         "rank": 20
     },
     "SOPHUSDT": {
