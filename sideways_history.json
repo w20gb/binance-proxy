@@ -1,8 +1,8 @@
 {
-    "IOSTUSDT": {
+    "TRXUSDT": {
         "rank": 1
     },
-    "TRXUSDT": {
+    "IOSTUSDT": {
         "rank": 2
     },
     "MTLUSDT": {
@@ -23,10 +23,10 @@
     "POLYXUSDT": {
         "rank": 8
     },
-    "AUCTIONUSDT": {
+    "ZETAUSDT": {
         "rank": 9
     },
-    "ZETAUSDT": {
+    "AUCTIONUSDT": {
         "rank": 10
     },
     "HIVEUSDT": {
@@ -50,10 +50,10 @@
     "AWEUSDT": {
         "rank": 17
     },
-    "SOPHUSDT": {
+    "NXPCUSDT": {
         "rank": 18
     },
-    "NXPCUSDT": {
+    "SOPHUSDT": {
         "rank": 19
     },
     "CARVUSDT": {
