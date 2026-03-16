@@ -1,17 +1,17 @@
 {
-    "TRXUSDT": {
+    "IOSTUSDT": {
         "rank": 1
     },
-    "IOSTUSDT": {
+    "TRXUSDT": {
         "rank": 2
     },
     "ANKRUSDT": {
         "rank": 3
     },
-    "ARPAUSDT": {
+    "MTLUSDT": {
         "rank": 4
     },
-    "MTLUSDT": {
+    "ARPAUSDT": {
         "rank": 5
     },
     "LPTUSDT": {
@@ -47,10 +47,10 @@
     "HYPERUSDT": {
         "rank": 16
     },
-    "B2USDT": {
+    "PUNDIXUSDT": {
         "rank": 17
     },
-    "PUNDIXUSDT": {
+    "B2USDT": {
         "rank": 18
     },
     "NXPCUSDT": {
