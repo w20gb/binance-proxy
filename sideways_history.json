@@ -5,67 +5,67 @@
     "IOSTUSDT": {
         "rank": 2
     },
-    "MTLUSDT": {
+    "ANKRUSDT": {
         "rank": 3
     },
-    "ANKRUSDT": {
+    "ARPAUSDT": {
         "rank": 4
     },
-    "ARPAUSDT": {
+    "LPTUSDT": {
         "rank": 5
     },
-    "LPTUSDT": {
+    "MTLUSDT": {
         "rank": 6
     },
-    "GMTUSDT": {
+    "1000LUNCUSDT": {
         "rank": 7
     },
-    "NMRUSDT": {
+    "GMTUSDT": {
         "rank": 8
     },
-    "POLYXUSDT": {
+    "NMRUSDT": {
         "rank": 9
     },
-    "AUCTIONUSDT": {
+    "POLYXUSDT": {
         "rank": 10
     },
-    "SONICUSDT": {
+    "AUCTIONUSDT": {
         "rank": 11
     },
     "HIVEUSDT": {
         "rank": 12
     },
-    "PAXGUSDT": {
+    "SONICUSDT": {
         "rank": 13
     },
-    "HYPERUSDT": {
+    "PAXGUSDT": {
         "rank": 14
     },
-    "PUNDIXUSDT": {
+    "AERGOUSDT": {
         "rank": 15
     },
-    "AERGOUSDT": {
+    "HYPERUSDT": {
         "rank": 16
     },
-    "NXPCUSDT": {
+    "PUNDIXUSDT": {
         "rank": 17
     },
-    "AWEUSDT": {
+    "NXPCUSDT": {
         "rank": 18
     },
-    "SOPHUSDT": {
+    "AWEUSDT": {
         "rank": 19
     },
-    "CARVUSDT": {
+    "SOPHUSDT": {
         "rank": 20
     },
-    "ALLUSDT": {
+    "CARVUSDT": {
         "rank": 21
     },
-    "ASTERUSDT": {
+    "ALLUSDT": {
         "rank": 22
     },
-    "1000LUNCUSDT": {
+    "ASTERUSDT": {
         "rank": 23
     },
     "ORDERUSDT": {
