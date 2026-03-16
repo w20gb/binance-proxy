@@ -1,77 +1,77 @@
 {
-    "LTCUSDT": {
+    "TRXUSDT": {
         "rank": 1
     },
     "IOSTUSDT": {
         "rank": 2
     },
-    "TRXUSDT": {
+    "RVNUSDT": {
         "rank": 3
     },
-    "RVNUSDT": {
+    "MTLUSDT": {
         "rank": 4
     },
-    "MTLUSDT": {
+    "ARPAUSDT": {
         "rank": 5
     },
-    "ARPAUSDT": {
+    "LPTUSDT": {
         "rank": 6
     },
-    "LPTUSDT": {
+    "GMTUSDT": {
         "rank": 7
     },
-    "GMTUSDT": {
+    "IDUSDT": {
         "rank": 8
     },
-    "IDUSDT": {
+    "NMRUSDT": {
         "rank": 9
     },
-    "BLURUSDT": {
+    "POLYXUSDT": {
         "rank": 10
     },
-    "POLYXUSDT": {
+    "AUCTIONUSDT": {
         "rank": 11
     },
     "USTCUSDT": {
         "rank": 12
     },
-    "AUCTIONUSDT": {
+    "ZETAUSDT": {
         "rank": 13
     },
-    "KASUSDT": {
+    "HIVEUSDT": {
         "rank": 14
     },
-    "ZETAUSDT": {
+    "SONICUSDT": {
         "rank": 15
     },
-    "HIVEUSDT": {
+    "PAXGUSDT": {
         "rank": 16
     },
-    "SONICUSDT": {
+    "AERGOUSDT": {
         "rank": 17
     },
-    "PAXGUSDT": {
+    "HYPERUSDT": {
         "rank": 18
     },
-    "AERGOUSDT": {
+    "PUNDIXUSDT": {
         "rank": 19
     },
-    "PUNDIXUSDT": {
+    "NXPCUSDT": {
         "rank": 20
     },
-    "HYPERUSDT": {
+    "AWEUSDT": {
         "rank": 21
     },
     "SOPHUSDT": {
         "rank": 22
     },
-    "NXPCUSDT": {
+    "CARVUSDT": {
         "rank": 23
     },
-    "AWEUSDT": {
+    "ALLUSDT": {
         "rank": 24
     },
-    "ALLUSDT": {
+    "ASTERUSDT": {
         "rank": 25
     }
 }
