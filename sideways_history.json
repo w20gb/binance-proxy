@@ -8,13 +8,13 @@
     "ANKRUSDT": {
         "rank": 3
     },
-    "LPTUSDT": {
+    "MTLUSDT": {
         "rank": 4
     },
-    "MTLUSDT": {
+    "ARPAUSDT": {
         "rank": 5
     },
-    "ARPAUSDT": {
+    "LPTUSDT": {
         "rank": 6
     },
     "GMTUSDT": {
@@ -26,10 +26,10 @@
     "NMRUSDT": {
         "rank": 9
     },
-    "POLYXUSDT": {
+    "POWRUSDT": {
         "rank": 10
     },
-    "POWRUSDT": {
+    "POLYXUSDT": {
         "rank": 11
     },
     "AUCTIONUSDT": {
@@ -44,22 +44,22 @@
     "PAXGUSDT": {
         "rank": 15
     },
-    "HYPERUSDT": {
+    "AERGOUSDT": {
         "rank": 16
     },
     "PUNDIXUSDT": {
         "rank": 17
     },
-    "AERGOUSDT": {
+    "HYPERUSDT": {
         "rank": 18
     },
     "NXPCUSDT": {
         "rank": 19
     },
-    "AWEUSDT": {
+    "B2USDT": {
         "rank": 20
     },
-    "B2USDT": {
+    "AWEUSDT": {
         "rank": 21
     },
     "SOPHUSDT": {
