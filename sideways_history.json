@@ -1,8 +1,8 @@
 {
-    "IOSTUSDT": {
+    "TRXUSDT": {
         "rank": 1
     },
-    "TRXUSDT": {
+    "IOSTUSDT": {
         "rank": 2
     },
     "ANKRUSDT": {
@@ -11,13 +11,13 @@
     "MTLUSDT": {
         "rank": 4
     },
-    "LPTUSDT": {
+    "GMTUSDT": {
         "rank": 5
     },
-    "GMTUSDT": {
+    "ARPAUSDT": {
         "rank": 6
     },
-    "ARPAUSDT": {
+    "LPTUSDT": {
         "rank": 7
     },
     "1000LUNCUSDT": {
@@ -41,19 +41,19 @@
     "PAXGUSDT": {
         "rank": 14
     },
-    "PUNDIXUSDT": {
+    "AERGOUSDT": {
         "rank": 15
     },
-    "AERGOUSDT": {
+    "HYPERUSDT": {
         "rank": 16
     },
-    "HYPERUSDT": {
+    "PUNDIXUSDT": {
         "rank": 17
     },
-    "B2USDT": {
+    "NXPCUSDT": {
         "rank": 18
     },
-    "NXPCUSDT": {
+    "B2USDT": {
         "rank": 19
     },
     "AWEUSDT": {
@@ -62,10 +62,10 @@
     "SOPHUSDT": {
         "rank": 21
     },
-    "CARVUSDT": {
+    "ALLUSDT": {
         "rank": 22
     },
-    "ALLUSDT": {
+    "CARVUSDT": {
         "rank": 23
     },
     "ASTERUSDT": {
