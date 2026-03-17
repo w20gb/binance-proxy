@@ -200,7 +200,7 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
              # 分离名称与链接，确保名称 100% 可复制
              display_sym = sym.replace("USDT", "")
              name_copyable = f"`{display_sym}`"
-             link_icon = f"[↗️](https://www.coinglass.com/tv/zh/Binance_{sym})"
+             link_icon = f"[🔗](https://www.coinglass.com/tv/zh/Binance_{sym})"
 
              # OI 异动数据
              oi_change = r.get("oi_change_24h_pct", 0)
