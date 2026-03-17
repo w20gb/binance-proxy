@@ -1,23 +1,23 @@
 {
-    "IOSTUSDT": {
+    "BTCUSDT": {
         "rank": 1
     },
-    "TRXUSDT": {
+    "IOSTUSDT": {
         "rank": 2
     },
-    "ANKRUSDT": {
+    "TRXUSDT": {
         "rank": 3
     },
-    "HOTUSDT": {
+    "ANKRUSDT": {
         "rank": 4
     },
     "MTLUSDT": {
         "rank": 5
     },
-    "ARPAUSDT": {
+    "HOTUSDT": {
         "rank": 6
     },
-    "1000LUNCUSDT": {
+    "ARPAUSDT": {
         "rank": 7
     },
     "GMTUSDT": {
@@ -26,10 +26,10 @@
     "LUNA2USDT": {
         "rank": 9
     },
-    "NMRUSDT": {
+    "1000LUNCUSDT": {
         "rank": 10
     },
-    "POLYXUSDT": {
+    "NMRUSDT": {
         "rank": 11
     },
     "POWRUSDT": {
@@ -68,10 +68,10 @@
     "TRUTHUSDT": {
         "rank": 23
     },
-    "BTCUSDT": {
+    "SUNUSDT": {
         "rank": 24
     },
-    "SUNUSDT": {
+    "CLOUSDT": {
         "rank": 25
     }
 }
