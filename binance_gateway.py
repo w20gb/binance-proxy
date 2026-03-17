@@ -122,3 +122,8 @@ def fetch_oi_history(symbol, period="1h", limit=24):
     url = f"{FAPI_BASE}/futures/data/openInterestHist"
     params = {"symbol": symbol, "period": period, "limit": limit}
     return fetch_json(url, params=params)
+
+def fetch_cmc_data():
+    """获取全市场 24h 价格数据，用于提取市值等辅助信息 (从现货接口)"""
+    url = f"{API_BASE}/api/v3/ticker/24hr"
+    return fetch_json(url)
