@@ -1,8 +1,8 @@
 {
-    "IOSTUSDT": {
+    "TRXUSDT": {
         "rank": 1
     },
-    "TRXUSDT": {
+    "IOSTUSDT": {
         "rank": 2
     },
     "ANKRUSDT": {
@@ -14,13 +14,13 @@
     "ARPAUSDT": {
         "rank": 5
     },
-    "LUNA2USDT": {
+    "1000LUNCUSDT": {
         "rank": 6
     },
-    "1000LUNCUSDT": {
+    "GMTUSDT": {
         "rank": 7
     },
-    "GMTUSDT": {
+    "LUNA2USDT": {
         "rank": 8
     },
     "NMRUSDT": {
@@ -44,34 +44,34 @@
     "PAXGUSDT": {
         "rank": 15
     },
-    "HYPERUSDT": {
+    "PUNDIXUSDT": {
         "rank": 16
     },
-    "PUNDIXUSDT": {
+    "AERGOUSDT": {
         "rank": 17
     },
-    "AERGOUSDT": {
+    "NXPCUSDT": {
         "rank": 18
     },
     "AWEUSDT": {
         "rank": 19
     },
-    "NXPCUSDT": {
+    "ALLUSDT": {
         "rank": 20
     },
-    "ALLUSDT": {
+    "CARVUSDT": {
         "rank": 21
     },
-    "CARVUSDT": {
+    "ORDERUSDT": {
         "rank": 22
     },
-    "ASTERUSDT": {
+    "TRUTHUSDT": {
         "rank": 23
     },
-    "ORDERUSDT": {
+    "HOTUSDT": {
         "rank": 24
     },
-    "TRUTHUSDT": {
+    "BTCUSDT": {
         "rank": 25
     }
 }
