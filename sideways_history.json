@@ -14,10 +14,10 @@
     "ARPAUSDT": {
         "rank": 5
     },
-    "1000LUNCUSDT": {
+    "GMTUSDT": {
         "rank": 6
     },
-    "GMTUSDT": {
+    "1000LUNCUSDT": {
         "rank": 7
     },
     "LUNA2USDT": {
@@ -53,25 +53,25 @@
     "NXPCUSDT": {
         "rank": 18
     },
-    "AWEUSDT": {
+    "ALLUSDT": {
         "rank": 19
     },
-    "ALLUSDT": {
+    "CARVUSDT": {
         "rank": 20
     },
-    "CARVUSDT": {
+    "ORDERUSDT": {
         "rank": 21
     },
-    "ORDERUSDT": {
+    "TRUTHUSDT": {
         "rank": 22
     },
-    "TRUTHUSDT": {
+    "HOTUSDT": {
         "rank": 23
     },
-    "HOTUSDT": {
+    "BTCUSDT": {
         "rank": 24
     },
-    "BTCUSDT": {
+    "SUNUSDT": {
         "rank": 25
     }
 }
