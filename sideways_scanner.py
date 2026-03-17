@@ -82,6 +82,7 @@ def save_history(valid_results, prev_history):
             "rank_chain": new_chain,
             "on_board_count": new_count,
             "last_bbw": curr_bbw,
+            "last_price": r["price"],
             "last_seen": datetime.utcnow().strftime("%y-%m-%d %H:%M")
         }
 
@@ -141,12 +142,35 @@ def calc_bollinger_squeeze(klines):
     return duration, final_bbw, current_price
 
 
-def _fetch_klines_wrapper(symbol):
-    """对 gateway 的 fetch_klines 做一层包装"""
-    return fetch_klines(symbol, interval=INTERVAL, limit=LIMIT)
+def detect_breakouts(valid_results, history, current_prices_dict):
+    """
+    捕捉“爆发信号”：曾经在榜（尤其是长期霸榜）的币种，本次消失，则大概率是打破了状态。
+    """
+    current_symbols = {r["symbol"] for r in valid_results}
+    breakouts = []
 
+    for sym, hist_item in history.items():
+        if sym not in current_symbols:
+            # 只有连续上榜 2 次及以上，且之前排名在前 20 的才值得关注
+            if hist_item.get("on_board_count", 0) >= 2:
+                # 判断方向
+                last_price = hist_item.get("last_price", 0)
+                curr_price = current_prices_dict.get(sym, 0)
 
-def notify_feishu(valid_results, bj_time, history):
+                if curr_price > 0 and last_price > 0:
+                    change_pct = (curr_price - last_price) / last_price * 100
+                    # 如果价格波动较大 (>1%)，或者 BBW 已经撑开，判定为爆发
+                    if abs(change_pct) > 1.0:
+                        direction = "🚀向上突破" if change_pct > 0 else "🩸向下破位"
+                        breakouts.append({
+                            "symbol": sym,
+                            "direction": direction,
+                            "change": change_pct,
+                            "on_board": hist_item.get("on_board_count", 0)
+                        })
+    return breakouts
+
+def notify_feishu(valid_results, bj_time, history, all_results_dict):
     """深度优化的飞书看板：加入了名次动量、收敛加速度和霸榜时长"""
     if not FEISHU_WEBHOOK:
         return
@@ -217,6 +241,15 @@ def notify_feishu(valid_results, bj_time, history):
 
          if len(valid_results) > 25:
              md_lines.append(f"\n*(共有 {len(valid_results)} 个币满足条件，这里仅展示前25名)*")
+
+    # --- 新增：爆发预警板块 ---
+    breakouts = detect_breakouts(valid_results, history, all_results_dict)
+    if breakouts:
+        md_lines.append("\n🚨 **【爆发预警: 打破平衡(Breaking)】**")
+        for b in breakouts[:5]: # 最多展示 5 个最典型的爆发
+            display_sym = b["symbol"].replace("USDT", "")
+            link = f"[`{display_sym}`](https://www.coinglass.com/tv/zh/Binance_{b['symbol']})"
+            md_lines.append(f"* {b['direction']} **{link}** | 🔥霸榜`{b['on_board']}h`后变盘 | 幅度 `{b['change']:+.1f}%`")
 
     card = {
         "msg_type": "interactive",
@@ -383,7 +416,8 @@ def main():
     print(f"\n[OK] 全量报告已归档至: {report_path}")
 
     # 2. 推送到飞书
-    notify_feishu(valid_results, bj_time, history)
+    all_prices_map = {r["symbol"]: r["price"] for r in results} # 包含未上榜的最新价格用于判断突破
+    notify_feishu(valid_results, bj_time, history, all_prices_map)
 
     # 3. 覆盖写入本次历史记录，供下次执行作对比
     save_history(valid_results, history)
