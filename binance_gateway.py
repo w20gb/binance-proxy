@@ -59,13 +59,13 @@ def fetch_json(url, retries=3, timeout=60, retry_delay=5, **kwargs):
             return res.json()
         except Exception as e:
             if attempt < retries and not USE_TOR:
-                # 轮换线路
+                # 轮换线路 (静默切换)
                 old_base = PROXY_POOL[_proxy_idx]
                 _proxy_idx = (_proxy_idx + 1) % len(PROXY_POOL)
                 new_base = PROXY_POOL[_proxy_idx]
                 FAPI_BASE, API_BASE = new_base, new_base
                 current_url = current_url.replace(old_base, new_base)
-                print(f"  🧠 [自动容错] 线路故障，已切换至: {new_base}")
+                # print(f"  🧠 [自动容错] 线路故障，已切换至: {new_base}") # 降低噪音，静默切换
                 time.sleep(retry_delay)
             else:
                 if attempt == retries: return None

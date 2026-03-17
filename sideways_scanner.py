@@ -312,9 +312,9 @@ def main():
     # 仅保留缩圈时长 >= MIN_DURATION 的核心标的
     valid_results = [r for r in results if r["duration"] >= MIN_DURATION]
 
-    # 并发拉取 OI 异动数据 (为最终榜单赋能)
+    # 并发拉取 OI 异动数据 (为最终榜单赋能，仅拉取前 50 个核心标的以防反代过载)
     if valid_results:
-        fetch_oi_for_candidates(valid_results)
+        fetch_oi_for_candidates(valid_results[:50])
 
         # 二次排序：由于已经保证了 MIN_DURATION 收敛，此时我们让同等收敛时长的币，按 OI 增幅作为第二排序权重，体现“资金异动暗流”
         valid_results.sort(key=lambda x: (x["duration"], x.get("oi_change_24h_pct", 0)), reverse=True)
