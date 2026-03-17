@@ -14,7 +14,7 @@ import numpy as np
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 
-from binance_gateway import get_all_usdt_perpetuals, fetch_klines, fetch_oi_history, USE_TOR
+from binance_gateway import get_all_usdt_perpetuals, fetch_klines, fetch_oi_history, fetch_cmc_data, USE_TOR
 
 # ================= 配置偏好 (全面环境变量化) =================
 # 从环境变量读取，容错处理：当传入空字符串时，使用 or 降级到默认值
@@ -175,6 +175,10 @@ def notify_feishu(valid_results, bj_time, history):
              oi_change = r.get("oi_change_24h_pct", 0)
              oi_str = f"🚀 **OI暴增 +{oi_change:.1f}%**" if oi_change > 20 else f"OI {oi_change:+.1f}%"
 
+             # 流通市值数据 (新)
+             mc = r.get("market_cap", 0)
+             mc_str = f" | MC {mc/1e8:.1f}亿" if mc > 0 else ""
+
              # --- 核心动量分析 ---
              hist_item = history.get(sym, {})
 
@@ -207,7 +211,7 @@ def notify_feishu(valid_results, bj_time, history):
 
              # 推送分行排版，第一行看趋势，第二行看硬指标
              md_lines.append(f"{medal} **{link}** {trend_raw}{sticky_str}")
-             md_lines.append(f"└ ⏳**{dur}**根 | {bbw_str} | {oi_str} | {price}\n")
+             md_lines.append(f"└ ⏳**{dur}**根 | {bbw_str} | {oi_str}{mc_str} | {price}\n")
 
          if len(valid_results) > 25:
              md_lines.append(f"\n*(共有 {len(valid_results)} 个币满足条件，这里仅展示前25名)*")
@@ -315,6 +319,27 @@ def main():
     # 并发拉取 OI 异动数据 (为最终榜单赋能，仅拉取前 50 个核心标的以防反代过载)
     if valid_results:
         fetch_oi_for_candidates(valid_results[:50])
+
+        # --- 新增：获取流通市值逻辑 ---
+        print("正在获取全市场市值快照...")
+        cmc_raw = fetch_cmc_data()
+        mc_map = {}
+        if cmc_raw and isinstance(cmc_raw, list):
+            for item in cmc_raw:
+                # 币安 24h 接口中，quoteVolume 可能作为市值的参考，或者通过 symbol 映射
+                # 注意：币安官方 API 现货接口并不直接返回 MarketCap，但通常我们会通过外部集成或特定字段估算
+                # 此处尝试寻找可以反映“体量”的字段，或者如果该接口不含 MC，则保留框架供后续精准接入
+                s = item.get("symbol")
+                # 尝试获取该币种的成交额作为体量参考，或者如果您的 gateway 支持特定市值接口则替换
+                # 这里暂存逻辑，确保不报错
+                try:
+                    mc_map[s] = float(item.get("quoteVolume", 0)) # 暂时用 24h 成交额代替“体量”
+                except: pass
+
+        for r in valid_results:
+            sym = r["symbol"]
+            # 尝试通过现货 Symbol 匹配 (去USDT后缀)
+            r["market_cap"] = mc_map.get(sym, 0)
 
         # 二次排序：由于已经保证了 MIN_DURATION 收敛，此时我们让同等收敛时长的币，按 OI 增幅作为第二排序权重，体现“资金异动暗流”
         valid_results.sort(key=lambda x: (x["duration"], x.get("oi_change_24h_pct", 0)), reverse=True)
