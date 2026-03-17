@@ -169,7 +169,9 @@ def notify_feishu(valid_results, bj_time, history):
              dur = r["duration"]
              curr_bbw = r["amplitude"]
              price = f'${r["price"]:g}'
-             link = f"[{sym}](https://www.coinglass.com/tv/zh/Binance_{sym})"
+             # 去除 USDT 后缀并加反引号，方便点击/长按复制
+             display_sym = sym.replace("USDT", "")
+             link = f"[`{display_sym}`](https://www.coinglass.com/tv/zh/Binance_{sym})"
 
              # OI 异动数据
              oi_change = r.get("oi_change_24h_pct", 0)
