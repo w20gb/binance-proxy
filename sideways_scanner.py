@@ -142,6 +142,10 @@ def calc_bollinger_squeeze(klines):
     return duration, final_bbw, current_price
 
 
+def _fetch_klines_wrapper(symbol):
+    """对 gateway 的 fetch_klines 做一层包装"""
+    return fetch_klines(symbol, interval=INTERVAL, limit=LIMIT)
+
 def detect_breakouts(valid_results, history, current_prices_dict):
     """
     捕捉“爆发信号”：曾经在榜（尤其是长期霸榜）的币种，本次消失，则大概率是打破了状态。
