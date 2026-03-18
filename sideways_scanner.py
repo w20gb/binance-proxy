@@ -278,7 +278,7 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
     md_lines = []
     md_lines.append(f"⏱️ **生成时间**: `{time_str}` (北京时间)")
     md_lines.append(f"⚙️ **参数**: 追溯 `{LIMIT}` 根 `{INTERVAL}` | BBW < **{BBW_THRESHOLD*100:.1f}%**")
-    md_lines.append(f"� **排序方式**: 币种名升序\n---")
+    md_lines.append(f"🔤 **排序方式**: 时长Top25按名称升序\n---")
 
     if not valid_results:
          md_lines.append("\n✅ *当前全网无极致收敛标的，波动性正常释放中*")
@@ -420,15 +420,24 @@ def main():
             r["mc_value"] = item.get("mc", 0)
             r["oi_mc_ratio"] = r["oi_value"] / r["mc_value"] if r["mc_value"] > 0 else 0
 
-        # 按币种名升序排列 (用户最新需求)
-        valid_results.sort(key=lambda x: x["symbol"], reverse=False)
+        # 1. 首先按横盘时长 (duration) 降序排列，次要按 BBW (amplitude) 升序
+        valid_results.sort(key=lambda x: (-x["duration"], x["amplitude"]))
+
+        # 2. 截取前 25 名（横盘最久的标的集）
+        top_candidates = valid_results[:25]
+
+        # 3. 对这最久的 25 个标的进行币种名升序排列 (用户最新精确需求)
+        top_candidates.sort(key=lambda x: x["symbol"])
+
+        # 4. 重新拼接结果，确保报告和推送的前 25 是时长最久且名称有序的
+        valid_results = top_candidates + valid_results[25:]
 
     # 归档 Markdown 报告
     history = load_history()
     report_path = "sideways_report.md"
     with open(report_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("# 📊 币安 USDT 永续合约【横盘爆发雷达】\n\n")
-        f.write(f"> **生成时间**: {bj_time.strftime('%Y-%m-%d %H:%M:%S')} | **排序规则**: 币种名称升序\n\n")
+        f.write(f"> **生成时间**: {bj_time.strftime('%Y-%m-%d %H:%M:%S')} | **排序规则**: 时长前25名按名称升序\n\n")
         f.write("| 排名 | 合约标的 | Ratio | OI | MC | 极致缩圈 | BBW | 24h OI% | TradingView |\n")
         f.write("|---|---|---|---|---|---|---|---|---|\n")
         for i, r in enumerate(valid_results):
