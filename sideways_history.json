@@ -1,490 +1,227 @@
 {
     "0GUSDT": {
         "rank_chain": [
-            1,
             1
         ],
-<<<<<<< HEAD
-        "on_board_count": 3,
-        "last_bbw": 0.04557711617972451,
-        "last_price": 0.5636,
-        "last_seen": "26-03-18 14:18"
-=======
-        "on_board_count": 2,
-        "last_bbw": 0.040057777571478076,
-        "last_price": 0.5644,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.04636096393653826,
+        "last_price": 0.5626,
+        "last_seen": "26-03-18 14:23"
     },
     "1000LUNCUSDT": {
         "rank_chain": [
-            2,
-<<<<<<< HEAD
-            2,
             2
         ],
-        "on_board_count": 3,
+        "on_board_count": 1,
         "last_bbw": 0.028439615009519335,
         "last_price": 0.04152,
-        "last_seen": "26-03-18 14:18"
+        "last_seen": "26-03-18 14:23"
     },
     "ACEUSDT": {
         "rank_chain": [
             3
         ],
         "on_board_count": 1,
-        "last_bbw": 0.05067347977088078,
-        "last_price": 0.1452,
-        "last_seen": "26-03-18 14:18"
-=======
-            2
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.026178725402877318,
-        "last_price": 0.0416,
-        "last_seen": "26-03-18 13:49"
-    },
-    "1000XECUSDT": {
-        "rank_chain": [
-            3,
-            3
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.05684750641008611,
-        "last_price": 0.00707,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_bbw": 0.05155545470911759,
+        "last_price": 0.1449,
+        "last_seen": "26-03-18 14:23"
     },
     "ALLUSDT": {
         "rank_chain": [
-            4,
-<<<<<<< HEAD
-            4,
             4
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.05517557431898076,
-        "last_price": 0.4837,
-        "last_seen": "26-03-18 14:18"
-=======
-            4
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04627081549205963,
-        "last_price": 0.4861,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.05527174783613402,
+        "last_price": 0.4836,
+        "last_seen": "26-03-18 14:23"
     },
     "API3USDT": {
         "rank_chain": [
-            5,
             5
         ],
-<<<<<<< HEAD
         "on_board_count": 1,
-        "last_bbw": 0.036359641641489825,
-        "last_price": 0.2886,
-        "last_seen": "26-03-18 14:18"
-=======
-        "on_board_count": 2,
-        "last_bbw": 0.04526378152585349,
-        "last_price": 0.01011,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_bbw": 0.03702592972551838,
+        "last_price": 0.2882,
+        "last_seen": "26-03-18 14:23"
     },
     "ARPAUSDT": {
         "rank_chain": [
-<<<<<<< HEAD
-            5,
-            5,
             6
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.052048434413383846,
-        "last_price": 0.01008,
-        "last_seen": "26-03-18 14:18"
-=======
-            6,
-            6
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04251371594905232,
-        "last_price": 0.1009,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.0524558187323633,
+        "last_price": 0.01007,
+        "last_seen": "26-03-18 14:23"
     },
     "ATUSDT": {
         "rank_chain": [
-            7,
             7
         ],
-<<<<<<< HEAD
         "on_board_count": 1,
-        "last_bbw": 0.03933029540885205,
-        "last_price": 0.14423,
-        "last_seen": "26-03-18 14:18"
-=======
-        "on_board_count": 2,
-        "last_bbw": 0.03568938523501483,
-        "last_price": 72234.0,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_bbw": 0.03899652966282999,
+        "last_price": 0.14436,
+        "last_seen": "26-03-18 14:23"
     },
     "BCHUSDT": {
         "rank_chain": [
-            8,
             8
         ],
-<<<<<<< HEAD
         "on_board_count": 1,
-        "last_bbw": 0.053693549619515064,
-        "last_price": 453.09,
-        "last_seen": "26-03-18 14:18"
-=======
-        "on_board_count": 2,
-        "last_bbw": 0.051146619069611064,
-        "last_price": 0.07215,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_bbw": 0.053755440399338626,
+        "last_price": 453.03,
+        "last_seen": "26-03-18 14:23"
     },
     "BELUSDT": {
         "rank_chain": [
-<<<<<<< HEAD
-            6,
-            6,
             9
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.04835061162884947,
-        "last_price": 0.1004,
-        "last_seen": "26-03-18 14:18"
+        "on_board_count": 1,
+        "last_bbw": 0.04925387571230633,
+        "last_price": 0.1002,
+        "last_seen": "26-03-18 14:23"
     },
     "BTCUSDT": {
         "rank_chain": [
-            7,
-            7,
             10
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.04254218085988705,
-        "last_price": 71886.1,
-        "last_seen": "26-03-18 14:18"
+        "on_board_count": 1,
+        "last_bbw": 0.04255197909557644,
+        "last_price": 71884.6,
+        "last_seen": "26-03-18 14:23"
     },
     "HMSTRUSDT": {
         "rank_chain": [
-            10,
-            10,
             11
         ],
-        "on_board_count": 3,
+        "on_board_count": 1,
         "last_bbw": 0.056636698172729774,
         "last_price": 0.0001603,
-        "last_seen": "26-03-18 14:18"
-=======
-            9,
-            9
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.05704173078214971,
-        "last_price": 0.01144,
-        "last_seen": "26-03-18 13:49"
-    },
-    "HMSTRUSDT": {
-        "rank_chain": [
-            10,
-            10
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04854774393559826,
-        "last_price": 0.0001611,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_seen": "26-03-18 14:23"
     },
     "IOSTUSDT": {
         "rank_chain": [
-            11,
-<<<<<<< HEAD
-            11,
             12
         ],
-        "on_board_count": 3,
+        "on_board_count": 1,
         "last_bbw": 0.05494262903683864,
         "last_price": 0.001166,
-        "last_seen": "26-03-18 14:18"
-=======
-            11
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04771790116756047,
-        "last_price": 0.001165,
-        "last_seen": "26-03-18 13:49"
-    },
-    "IOTAUSDT": {
-        "rank_chain": [
-            12,
-            12
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.05069382179659244,
-        "last_price": 0.0641,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_seen": "26-03-18 14:23"
     },
     "KAIAUSDT": {
         "rank_chain": [
-            13,
-<<<<<<< HEAD
-            13,
             13
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.049803139327963576,
-        "last_price": 0.05338,
-        "last_seen": "26-03-18 14:18"
-=======
-            13
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04172964610880914,
-        "last_price": 0.05358,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.05077884046333007,
+        "last_price": 0.05327,
+        "last_seen": "26-03-18 14:23"
     },
     "KAITOUSDT": {
         "rank_chain": [
-            14,
-<<<<<<< HEAD
-            14,
             14
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.04551927554074555,
-        "last_price": 0.3559,
-        "last_seen": "26-03-18 14:18"
-=======
-            14
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.042373935379530325,
-        "last_price": 0.3561,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.04595402703196693,
+        "last_price": 0.3555,
+        "last_seen": "26-03-18 14:23"
     },
     "LUNA2USDT": {
         "rank_chain": [
-            15,
-<<<<<<< HEAD
-            15,
             15
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.043147592053972186,
-        "last_price": 0.06242,
-        "last_seen": "26-03-18 14:18"
-=======
-            15
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.03815232998657502,
-        "last_price": 0.06265,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.04280572636872768,
+        "last_price": 0.06247,
+        "last_seen": "26-03-18 14:23"
     },
     "MTLUSDT": {
         "rank_chain": [
-            16,
-<<<<<<< HEAD
-            16,
             16
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.054483633914394716,
-        "last_price": 0.2838,
-        "last_seen": "26-03-18 14:18"
-=======
-            16
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04855200045603252,
-        "last_price": 0.2829,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.054190979595640724,
+        "last_price": 0.284,
+        "last_seen": "26-03-18 14:23"
     },
     "NMRUSDT": {
         "rank_chain": [
-            17,
-<<<<<<< HEAD
-            17,
             17
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.04203547929964335,
-        "last_price": 7.826,
-        "last_seen": "26-03-18 14:18"
-=======
-            17
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.03434991490004771,
-        "last_price": 7.83,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.04297940122403259,
+        "last_price": 7.811,
+        "last_seen": "26-03-18 14:23"
     },
     "OPENUSDT": {
         "rank_chain": [
-            18,
-<<<<<<< HEAD
-            18,
             18
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.046690789219076774,
-        "last_price": 0.1523,
-        "last_seen": "26-03-18 14:18"
-=======
-            18
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.036948553345074714,
-        "last_price": 0.1533,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.04702178496772299,
+        "last_price": 0.1522,
+        "last_seen": "26-03-18 14:23"
     },
     "ORCAUSDT": {
         "rank_chain": [
-            19,
-<<<<<<< HEAD
-            19,
             19
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.05704419577961024,
-        "last_price": 0.945,
-        "last_seen": "26-03-18 14:18"
-=======
-            19
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04736470361625915,
-        "last_price": 0.949,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.05800757955866033,
+        "last_price": 0.943,
+        "last_seen": "26-03-18 14:23"
     },
     "PAXGUSDT": {
         "rank_chain": [
-            20,
-<<<<<<< HEAD
-            20,
             20
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.034087297478585084,
-        "last_price": 4872.83,
-        "last_seen": "26-03-18 14:18"
-=======
-            20
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.02999708580858534,
-        "last_price": 4868.64,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.03539127251098887,
+        "last_price": 4858.89,
+        "last_seen": "26-03-18 14:23"
     },
     "RUNEUSDT": {
         "rank_chain": [
-            21,
             21
         ],
-<<<<<<< HEAD
         "on_board_count": 1,
-        "last_bbw": 0.05249787759900902,
-        "last_price": 0.4285,
-        "last_seen": "26-03-18 14:18"
-=======
-        "on_board_count": 2,
-        "last_bbw": 0.03939524526893923,
-        "last_price": 1.27,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_bbw": 0.0530310471067488,
+        "last_price": 0.428,
+        "last_seen": "26-03-18 14:23"
     },
     "SANTOSUSDT": {
         "rank_chain": [
-<<<<<<< HEAD
-            21,
-            21,
             22
         ],
-        "on_board_count": 3,
+        "on_board_count": 1,
         "last_bbw": 0.04984821287593246,
         "last_price": 1.262,
-        "last_seen": "26-03-18 14:18"
-=======
-            22,
-            22
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.05057325736634997,
-        "last_price": 0.04537,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_seen": "26-03-18 14:23"
     },
     "TONUSDT": {
         "rank_chain": [
-            23,
-<<<<<<< HEAD
-            23,
             23
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.04714676018364899,
-        "last_price": 1.3018,
-        "last_seen": "26-03-18 14:18"
-=======
-            23
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.04026506247592722,
-        "last_price": 1.3032,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "on_board_count": 1,
+        "last_bbw": 0.047181060571315055,
+        "last_price": 1.3017,
+        "last_seen": "26-03-18 14:23"
     },
     "TRXUSDT": {
         "rank_chain": [
-            24,
-<<<<<<< HEAD
-            24,
             24
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.03421500795541581,
-        "last_price": 0.30073,
-        "last_seen": "26-03-18 14:18"
+        "on_board_count": 1,
+        "last_bbw": 0.03413319431485532,
+        "last_price": 0.30082,
+        "last_seen": "26-03-18 14:23"
     },
     "YFIUSDT": {
         "rank_chain": [
             25
         ],
         "on_board_count": 1,
-        "last_bbw": 0.04166983799905898,
-        "last_price": 2690.0,
-        "last_seen": "26-03-18 14:18"
-=======
-            24
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.032726269403264195,
-        "last_price": 0.30105,
-        "last_seen": "26-03-18 13:49"
-    },
-    "WAXPUSDT": {
-        "rank_chain": [
-            25,
-            25
-        ],
-        "on_board_count": 2,
-        "last_bbw": 0.05252028980064648,
-        "last_price": 0.006503,
-        "last_seen": "26-03-18 13:49"
->>>>>>> 5db706d (feat(analytics): replace Market Cap with 24h Volume and update OI/Vol Ratio)
+        "last_bbw": 0.04209614529241474,
+        "last_price": 2687.0,
+        "last_seen": "26-03-18 14:23"
     }
 }
