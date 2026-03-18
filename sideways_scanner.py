@@ -184,7 +184,7 @@ def format_number(n):
     return f"{n:.1f}"
 
 async def fetch_coinglass_market_data():
-    """【黑科技】通过 Playwright 掠夺 Coinglass 的全市场流通市值与持仓数据"""
+    """【黑科技】通过 Playwright 掠夺 Coinglass 的全市场持仓与 24h 成交额数据"""
     target_url = "https://www.coinglass.com/zh/exchanges/Binance"
     results = {}
 
@@ -200,7 +200,7 @@ async def fetch_coinglass_market_data():
         )
         page = await context.new_page()
 
-        # 数据劫持脚本 (同步 1h 级别比值模块的高版本逻辑)
+        # 数据劫持脚本 (同步 1h 级别比值模块的高版本逻辑，适配成交额字段)
         inject_js = """
         (function() {
             const originalParse = JSON.parse;
@@ -220,8 +220,8 @@ async def fetch_coinglass_market_data():
                                 let keys = Object.keys(first);
                                 let hasSymbol = keys.includes('symbol') || keys.includes('uSymbol');
                                 let hasOi = keys.includes('openInterest') || keys.includes('oi');
-                                let hasCap = keys.includes('marketCap') || keys.includes('fdv');
-                                if (hasSymbol && hasOi && hasCap) {
+                                let hasVol = keys.includes('h24VolUsd') || keys.includes('vol24h') || keys.includes('volUsd') || keys.includes('volume24h');
+                                if (hasSymbol && hasOi && (hasVol || keys.includes('marketCap'))) {
                                     if (window.onCapturedData) window.onCapturedData(JSON.stringify(list));
                                 }
                             }
@@ -255,19 +255,25 @@ async def fetch_coinglass_market_data():
 
                 sym = str(item.get("symbol") or item.get("uSymbol") or "").replace("/USDT", "").replace("1000", "")
                 if not sym: continue
-                # 关键字段提取 (使用 get 容错)
+                # 关键字段提取 (持仓 + 24h成交额)
                 oi_val = float(item.get("openInterest") or item.get("oi") or 0)
-                mc_val = float(item.get("marketCap") or item.get("fullyDilutedMarketCap") or item.get("fdv") or 0)
+                # 尝试多种可能的成交额字段名
+                vol_val = float(
+                    item.get("h24VolUsd") or
+                    item.get("vol24h") or
+                    item.get("volUsd") or
+                    item.get("volume24h") or
+                    item.get("vol") or 0
+                )
 
-                if mc_val > 0:
-                    results[f"{sym}USDT"] = {"oi": oi_val, "mc": mc_val}
+                if vol_val > 0:
+                    results[f"{sym}USDT"] = {"oi": oi_val, "vol": vol_val}
 
         except Exception as e:
             print(f"⚠️ Coinglass 数据抓取异常: {e}")
         finally:
             await browser.close()
     return results
-
 def notify_feishu(valid_results, bj_time, history, all_results_dict):
     """深度优化的飞书看板：加入了名次动量、收敛加速度和霸榜时长"""
     if not FEISHU_WEBHOOK:
@@ -283,7 +289,7 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
     if not valid_results:
          md_lines.append("\n✅ *当前全网无极致收敛标的，波动性正常释放中*")
     else:
-         md_lines.append("\n🏆 **【横盘雷达: 缩圈中的资金异动 (OI/MC Ratio)】**\n")
+         md_lines.append("\n🏆 **【横盘雷达: 缩圈中的资金异动 (OI/Vol Ratio)】**\n")
 
          # 飞书卡片篇幅有限，最多推送前 25 名
          for i, r in enumerate(valid_results[:25]):
@@ -292,13 +298,13 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
              curr_bbw = r["amplitude"]
              price = f'${r["price"]:g}'
 
-             # 提取 OI, MC 和 Ratio
+             # 提取 OI, Volume 和 Ratio
              oi_val = r.get("oi_value", 0)
-             mc_val = r.get("mc_value", 0)
-             ratio = r.get("oi_mc_ratio", 0)
+             vol_val = r.get("vol_value", 0)
+             ratio = r.get("oi_vol_ratio", 0)
 
-             # 校对显示：格式 OI: 1.2亿 / MC: 2.4亿 = 0.50
-             comp_str = f"OI:`{format_number(oi_val)}` / MC:`{format_number(mc_val)}` = **`{ratio:.2f}`**"
+             # 校对显示：格式 OI: 1.2亿 / Vol: 2.4亿 = 0.50
+             comp_str = f"OI:`{format_number(oi_val)}` / Vol:`{format_number(vol_val)}` = **`{ratio:.2f}`**"
 
              # OI 24h 异动符号
              oi_change = r.get("oi_change_24h_pct", 0)
@@ -417,8 +423,8 @@ def main():
             sym = r["symbol"]
             item = cg_data.get(sym, {})
             r["oi_value"] = item.get("oi", 0)
-            r["mc_value"] = item.get("mc", 0)
-            r["oi_mc_ratio"] = r["oi_value"] / r["mc_value"] if r["mc_value"] > 0 else 0
+            r["vol_value"] = item.get("vol", 0)
+            r["oi_vol_ratio"] = r["oi_value"] / r["vol_value"] if r["vol_value"] > 0 else 0
 
         # 1. 首先按横盘时长 (duration) 降序排列，次要按 BBW (amplitude) 升序
         valid_results.sort(key=lambda x: (-x["duration"], x["amplitude"]))
@@ -438,10 +444,10 @@ def main():
     with open(report_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("# 📊 币安 USDT 永续合约【横盘爆发雷达】\n\n")
         f.write(f"> **生成时间**: {bj_time.strftime('%Y-%m-%d %H:%M:%S')} | **排序规则**: 时长前25名按名称升序\n\n")
-        f.write("| 排名 | 合约标的 | Ratio | OI | MC | 极致缩圈 | BBW | 24h OI% | TradingView |\n")
+        f.write("| 排名 | 合约标的 | OI/Vol | OI | Vol | 极致缩圈 | BBW | 24h OI% | TradingView |\n")
         f.write("|---|---|---|---|---|---|---|---|---|\n")
         for i, r in enumerate(valid_results):
-            f.write(f"| {i+1} | **{r['symbol']}** | **{r.get('oi_mc_ratio',0):.2f}** | {format_number(r.get('oi_value',0))} | {format_number(r.get('mc_value',0))} | {r['duration']} 根 | {r['amplitude']*100:.2f}% | {r.get('oi_change_24h_pct',0):+.1f}% | [直达](https://www.coinglass.com/tv/zh/Binance_{r['symbol']}) |\n")
+            f.write(f"| {i+1} | **{r['symbol']}** | **{r.get('oi_vol_ratio',0):.2f}** | {format_number(r.get('oi_value',0))} | {format_number(r.get('vol_value',0))} | {r['duration']} 根 | {r['amplitude']*100:.2f}% | {r.get('oi_change_24h_pct',0):+.1f}% | [直达](https://www.coinglass.com/tv/zh/Binance_{r['symbol']}) |\n")
 
     # 推送飞书
     all_prices_map = {r["symbol"]: r["price"] for r in results}
