@@ -15,6 +15,9 @@ PROXY_POOL = [
     "https://bn-proxy-tokyo.vercel.app",   # 线路A (主 - 日本东京)
     "https://binance-proxy.vercel.app"      # 线路B (备 - 仅支持Spot接口)
 ]
+# 大陆直连公共行情线路 (仅支持现货/非签名接口)
+VISION_BASE = "https://data-api.binance.vision"
+
 _proxy_idx = 0
 
 USE_TOR = os.environ.get("USE_TOR") == "true"
@@ -124,6 +127,25 @@ def fetch_oi_history(symbol, period="1h", limit=24):
     return fetch_json(url, params=params)
 
 def fetch_cmc_data():
-    """获取全市场 24h 价格数据，用于提取市值等辅助信息 (从现货接口)"""
+    """获取全市场 24h 价格数据，用于提取市值等辅助信息 (优先尝试大陆直连线路)"""
+    url = f"{VISION_BASE}/api/v3/ticker/24hr"
+    data = fetch_json(url, retries=1, timeout=10) # 快速尝试直连
+    if data: return data
+
+    # 直连失败则走反代
     url = f"{API_BASE}/api/v3/ticker/24hr"
     return fetch_json(url)
+
+def fetch_public_spot_klines(symbol, interval="1m", limit=1):
+    """
+    【大陆直连特供】获取现货 K 线 (主要用于 BTC 价格基准)
+    无需 API Key，无需反代，零延迟。
+    """
+    url = f"{VISION_BASE}/api/v3/klines?symbol={symbol}&interval={interval}&limit={limit}"
+    try:
+        res = _session.get(url, timeout=5)
+        if res.status_code == 200:
+            return res.json()
+    except:
+        pass
+    return None

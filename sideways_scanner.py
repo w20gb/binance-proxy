@@ -11,8 +11,10 @@ import requests
 import json
 import pandas as pd
 import numpy as np
+import asyncio
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
+from playwright.async_api import async_playwright
 
 from binance_gateway import get_all_usdt_perpetuals, fetch_klines, fetch_oi_history, fetch_cmc_data, USE_TOR
 
@@ -174,6 +176,94 @@ def detect_breakouts(valid_results, history, current_prices_dict):
                         })
     return breakouts
 
+def format_number(n):
+    """美化数字显示"""
+    if n is None or n == 0: return "0"
+    if n > 1e8: return f"{n/1e8:.2f}亿"
+    if n > 1e4: return f"{n/1e4:.0f}万"
+    return f"{n:.1f}"
+
+async def fetch_coinglass_market_data():
+    """【黑科技】通过 Playwright 掠夺 Coinglass 的全市场流通市值与持仓数据"""
+    target_url = "https://www.coinglass.com/zh/exchanges/Binance"
+    results = {}
+
+    async with async_playwright() as p:
+        # 遵循协议 Rule 17: 本地优先复用 Edge/Chrome 实现秒开
+        browser = await p.chromium.launch(headless=True, channel="msedge")
+        context = await browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        )
+        page = await context.new_page()
+
+        # 数据劫持脚本 (同步 1h 级别比值模块的高版本逻辑)
+        inject_js = """
+        (function() {
+            const originalParse = JSON.parse;
+            JSON.parse = function(text) {
+                const result = originalParse.apply(this, arguments);
+                try {
+                    if (text && text.length > 500 && result && typeof result === 'object') {
+                        let list = null;
+                        if (Array.isArray(result)) list = result;
+                        else if (result.data && Array.isArray(result.data)) list = result.data;
+                        else if (result.list && Array.isArray(result.list)) list = result.list;
+                        else if (result.data && result.data.list && Array.isArray(result.data.list)) list = result.data.list;
+
+                        if (list && list.length > 5) {
+                            let first = list[0];
+                            if (first && typeof first === 'object') {
+                                let keys = Object.keys(first);
+                                let hasSymbol = keys.includes('symbol') || keys.includes('uSymbol');
+                                let hasOi = keys.includes('openInterest') || keys.includes('oi');
+                                let hasCap = keys.includes('marketCap') || keys.includes('fdv');
+                                if (hasSymbol && hasOi && hasCap) {
+                                    if (window.onCapturedData) window.onCapturedData(JSON.stringify(list));
+                                }
+                            }
+                        }
+                    }
+                } catch(e) {}
+                return result;
+            };
+        })();
+        """
+        data_captured = asyncio.Future()
+
+        async def on_data(d):
+            if not data_captured.done(): data_captured.set_result(d)
+
+        await page.expose_function("onCapturedData", on_data)
+        await page.add_init_script(inject_js)
+
+        try:
+            await page.goto(target_url, wait_until="domcontentloaded", timeout=60000)
+            # 等待数据包到达
+            raw_json = await asyncio.wait_for(data_captured, timeout=40.0)
+            data_list = json.loads(raw_json)
+
+            if not isinstance(data_list, list):
+                print(f"⚠️ [Debug] Captured data is not a list: {type(data_list)}")
+                return results
+
+            for item in data_list:
+                if not isinstance(item, dict): continue
+
+                sym = str(item.get("symbol") or item.get("uSymbol") or "").replace("/USDT", "").replace("1000", "")
+                if not sym: continue
+                # 关键字段提取 (使用 get 容错)
+                oi_val = float(item.get("openInterest") or item.get("oi") or 0)
+                mc_val = float(item.get("marketCap") or item.get("fullyDilutedMarketCap") or item.get("fdv") or 0)
+
+                if mc_val > 0:
+                    results[f"{sym}USDT"] = {"oi": oi_val, "mc": mc_val}
+
+        except Exception as e:
+            print(f"⚠️ Coinglass 数据抓取异常: {e}")
+        finally:
+            await browser.close()
+    return results
+
 def notify_feishu(valid_results, bj_time, history, all_results_dict):
     """深度优化的飞书看板：加入了名次动量、收敛加速度和霸榜时长"""
     if not FEISHU_WEBHOOK:
@@ -182,14 +272,14 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
     time_str = bj_time.strftime("%Y-%m-%d %H:%M")
 
     md_lines = []
-    md_lines.append(f"⏱️ **生成时间**: `{time_str}` (北经时间)")
+    md_lines.append(f"⏱️ **生成时间**: `{time_str}` (北京时间)")
     md_lines.append(f"⚙️ **参数**: 追溯 `{LIMIT}` 根 `{INTERVAL}` | BBW < **{BBW_THRESHOLD*100:.1f}%**")
-    md_lines.append(f"🛡️ **策略**: 布林极致收敛，最大容错 `{BB_TOLERANCE}` 根K线\n---")
+    md_lines.append(f"� **排序方式**: 币种名升序\n---")
 
     if not valid_results:
          md_lines.append("\n✅ *当前全网无极致收敛标的，波动性正常释放中*")
     else:
-         md_lines.append("\n🏆 **【横盘雷达: 布林带收敛榜】(动量增强版)**\n")
+         md_lines.append("\n🏆 **【横盘雷达: 缩圈中的资金异动 (OI/MC Ratio)】**\n")
 
          # 飞书卡片篇幅有限，最多推送前 25 名
          for i, r in enumerate(valid_results[:25]):
@@ -197,61 +287,57 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
              dur = r["duration"]
              curr_bbw = r["amplitude"]
              price = f'${r["price"]:g}'
-             # 分离名称与链接，确保名称 100% 可复制
+
+             # 提取 OI, MC 和 Ratio
+             oi_val = r.get("oi_value", 0)
+             mc_val = r.get("mc_value", 0)
+             ratio = r.get("oi_mc_ratio", 0)
+
+             # 校对显示：格式 OI: 1.2亿 / MC: 2.4亿 = 0.50
+             comp_str = f"OI:`{format_number(oi_val)}` / MC:`{format_number(mc_val)}` = **`{ratio:.2f}`**"
+
+             # OI 24h 异动符号
+             oi_change = r.get("oi_change_24h_pct", 0)
+             oi_trend = f" (OI {oi_change:+.1f}%)" if abs(oi_change) > 5 else ""
+
+             # 分离名称与链接
              display_sym = sym.replace("USDT", "")
              name_copyable = f"`{display_sym}`"
              link_icon = f"[🔗](https://www.coinglass.com/tv/zh/Binance_{sym})"
 
-             # OI 异动数据
-             oi_change = r.get("oi_change_24h_pct", 0)
-             oi_str = f"🚀 **OI暴增 +{oi_change:.1f}%**" if oi_change > 20 else f"OI {oi_change:+.1f}%"
-
-             # 流通市值数据 (新)
-             mc = r.get("market_cap", 0)
-             mc_str = f" | MC {mc/1e8:.1f}亿" if mc > 0 else ""
-
              # --- 核心动量分析 ---
              hist_item = history.get(sym, {})
-
-             # 1. 排名动向与名次链
              chain = hist_item.get("rank_chain", [])
              if not chain:
                  trend_raw = "🆕"
              else:
                  prev_rank = chain[-1]
                  diff = prev_rank - (i + 1)
-                 # 转换为带数字的趋势符号
-                 if diff > 0: trend_raw = f"⬆️{diff}"
-                 elif diff < 0: trend_raw = f"⬇️{abs(diff)}"
-                 else: trend_raw = "➖"
+                 trend_raw = f"⬆️{diff}" if diff > 0 else f"⬇️{abs(diff)}" if diff < 0 else "➖"
 
-                 # 拼装名次链，例如 [15→8→🥇]
-                 chain_symbols = [("🥇" if c==1 else "🥈" if c==2 else "🥉" if c==3 else str(c)) for c in chain]
-                 trend_raw = f"{trend_raw} `[{'→'.join(chain_symbols)}]`"
-
-             # 2. 霸榜时长统计
              sticky_count = hist_item.get("on_board_count", 0)
              sticky_str = f" 🔥`{sticky_count}h`" if sticky_count > 1 else ""
 
-             # 3. BBW 细微变化 (趋势图标)
+             # BBW 细微变化
              last_bbw = hist_item.get("last_bbw", curr_bbw)
              bbw_icon = "💠" if curr_bbw < last_bbw else "⚠️" if curr_bbw > last_bbw else "➖"
              bbw_str = f'BBW {curr_bbw * 100:.2f}%({bbw_icon})'
 
              medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f" {i+1}."
 
-             # 推送分行排版，第一行看趋势，第二行看硬指标
+             # 排版：第一行 Symbol + 趋势；第二行 缩圈+BBW；第三行 核心校对数据
              md_lines.append(f"{medal} **{name_copyable}** {link_icon} {trend_raw}{sticky_str}")
-             md_lines.append(f"└ ⏳**{dur}**根 | {bbw_str} | {oi_str}{mc_str} | {price}\n")
+             md_lines.append(f"└ ⏳**{dur}**根 | {bbw_str}{oi_trend}")
+             md_lines.append(f"└ 📊 {comp_str} | {price}\n")
 
          if len(valid_results) > 25:
              md_lines.append(f"\n*(共有 {len(valid_results)} 个币满足条件，这里仅展示前25名)*")
 
-    # --- 新增：爆发预警板块 ---
+    # 爆发预警板块
     breakouts = detect_breakouts(valid_results, history, all_results_dict)
     if breakouts:
         md_lines.append("\n🚨 **【爆发预警: 打破平衡(Breaking)】**")
-        for b in breakouts[:5]: # 最多展示 5 个最典型的爆发
+        for b in breakouts[:5]:
             display_sym = b["symbol"].replace("USDT", "")
             link = f"[`{display_sym}`](https://www.coinglass.com/tv/zh/Binance_{b['symbol']})"
             md_lines.append(f"* {b['direction']} **{link}** | 🔥霸榜`{b['on_board']}h`后变盘 | 幅度 `{b['change']:+.1f}%`")
@@ -261,18 +347,10 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
         "card": {
             "config": { "wide_screen_mode": True },
             "header": {
-                "title": {
-                    "tag": "plain_text",
-                    "content": "📊 币安 USDT 永续合约【横盘爆发雷达】"
-                },
+                "title": { "tag": "plain_text", "content": "📊 币安 USDT 永续合约【横盘爆发雷达】" },
                 "template": "turquoise"
             },
-            "elements": [
-                {
-                    "tag": "markdown",
-                    "content": "\n".join(md_lines)
-                }
-            ]
+            "elements": [ { "tag": "markdown", "content": "\n".join(md_lines) } ]
         }
     }
 
@@ -285,146 +363,76 @@ def notify_feishu(valid_results, bj_time, history, all_results_dict):
 
 
 def fetch_oi_for_candidates(valid_results):
-    """为筛选出的核心标的并发拉取过去 24h 的持仓量异动数据"""
-    print(f"开始为 {len(valid_results)} 个核心标的拉取 OI 异动数据...")
-
+    """拉取 24h OI 变化 (保持原逻辑作为补充)"""
     def _fetch_oi(r):
         sym = r["symbol"]
         oi_hist = fetch_oi_history(sym, period="1d", limit=2)
         r["oi_change_24h_pct"] = 0
         if oi_hist and len(oi_hist) >= 2:
             try:
-                # 倒数第二个是昨天的，最后一个是目前的
                 old_oi = float(oi_hist[-2]["sumOpenInterestValue"])
                 new_oi = float(oi_hist[-1]["sumOpenInterestValue"])
-                if old_oi > 0:
-                    r["oi_change_24h_pct"] = (new_oi - old_oi) / old_oi * 100
-            except Exception:
-                pass
+                if old_oi > 0: r["oi_change_24h_pct"] = (new_oi - old_oi) / old_oi * 100
+            except: pass
         return r
 
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = [executor.submit(_fetch_oi, r) for r in valid_results]
-        for _ in as_completed(futures):
-            pass
+        for _ in as_completed(futures): pass
 
 def main():
     bj_time = datetime.utcnow() + timedelta(hours=8)
-    print(f"[{bj_time.strftime('%Y-%m-%d %H:%M:%S')}] (北京时间) 开始获取全网 USDT 永续合约列表...")
-    print(f"当前配置: 周期={INTERVAL}, 追溯={LIMIT}, BBW阈值={BBW_THRESHOLD}, 容忍度={BB_TOLERANCE}")
+    print(f"[{bj_time.strftime('%Y-%m-%d %H:%M:%S')}] 开始获取全网 USDT 永续合约列表...")
 
     symbols = get_all_usdt_perpetuals()
-    if not symbols:
-        print("未能获取到合约列表，程序退出。请检查网络隧道状态。")
-        return
-
-    # 剔除黑名单干扰标的
+    if not symbols: return
     symbols = [sym for sym in symbols if sym not in BLACKLIST]
 
-    print(f"共获取到 {len(symbols)} 个有效合约（已过滤黑名单），启动并发拉取引擎...")
-
     results = []
-    start_time = time.time()
-
     with ThreadPoolExecutor(max_workers=20) as executor:
         futures = {executor.submit(_fetch_klines_wrapper, sym): sym for sym in symbols}
-
-        count = 0
         for future in as_completed(futures):
-            count += 1
-            if count % 100 == 0:
-                print(f" -> 已扫描 {count}/{len(symbols)}...")
-
             symbol = futures[future]
             sym_kline = future.result()
-
             if sym_kline and sym_kline[1]:
                 duration, bbw, price = calc_bollinger_squeeze(sym_kline[1])
-                results.append({
-                    "symbol": symbol,
-                    "duration": duration,
-                    "amplitude": bbw, # 此处 amplitude 含义变为 bbw 宽度
-                    "price": price
-                })
+                results.append({"symbol": symbol, "duration": duration, "amplitude": bbw, "price": price})
 
-    time_taken = time.time() - start_time
-    print(f"数据拉取并计算完毕！核心耗时: {time_taken:.2f}s")
-
-    # 按收敛时间绝对降序排列
-    results.sort(key=lambda x: x["duration"], reverse=True)
-
-    # 仅保留缩圈时长 >= MIN_DURATION 的核心标的
+    # 仅保留横盘标的
     valid_results = [r for r in results if r["duration"] >= MIN_DURATION]
 
-    # 并发拉取 OI 异动数据 (为最终榜单赋能，仅拉取前 50 个核心标的以防反代过载)
     if valid_results:
+        # 1. 虽然已经有了 Coinglass 的 OI，但 24h 变化依然通过原 Binance 接口拉取以保持一致性
         fetch_oi_for_candidates(valid_results[:50])
 
-        # --- 新增：获取流通市值逻辑 ---
-        print("正在获取全市场市值快照...")
-        cmc_raw = fetch_cmc_data()
-        mc_map = {}
-        if cmc_raw and isinstance(cmc_raw, list):
-            for item in cmc_raw:
-                # 币安 24h 接口中，quoteVolume 可能作为市值的参考，或者通过 symbol 映射
-                # 注意：币安官方 API 现货接口并不直接返回 MarketCap，但通常我们会通过外部集成或特定字段估算
-                # 此处尝试寻找可以反映“体量”的字段，或者如果该接口不含 MC，则保留框架供后续精准接入
-                s = item.get("symbol")
-                # 尝试获取该币种的成交额作为体量参考，或者如果您的 gateway 支持特定市值接口则替换
-                # 这里暂存逻辑，确保不报错
-                try:
-                    mc_map[s] = float(item.get("quoteVolume", 0)) # 暂时用 24h 成交额代替“体量”
-                except: pass
+        # 2. 从 Coinglass 获取流通市值和精准的 OI 总量
+        print("正在从 Coinglass 抓取全市场流通市值快照...")
+        cg_data = asyncio.run(fetch_coinglass_market_data())
 
         for r in valid_results:
             sym = r["symbol"]
-            # 尝试通过现货 Symbol 匹配 (去USDT后缀)
-            r["market_cap"] = mc_map.get(sym, 0)
+            item = cg_data.get(sym, {})
+            r["oi_value"] = item.get("oi", 0)
+            r["mc_value"] = item.get("mc", 0)
+            r["oi_mc_ratio"] = r["oi_value"] / r["mc_value"] if r["mc_value"] > 0 else 0
 
-        # 二次排序：由于已经保证了 MIN_DURATION 收敛，此时我们让同等收敛时长的币，按 OI 增幅作为第二排序权重，体现“资金异动暗流”
-        valid_results.sort(key=lambda x: (x["duration"], x.get("oi_change_24h_pct", 0)), reverse=True)
+        # 按币种名升序排列 (用户最新需求)
+        valid_results.sort(key=lambda x: x["symbol"], reverse=False)
 
-    # 加载动量历史
+    # 归档 Markdown 报告
     history = load_history()
-
-    # 1. 写入 Markdown 本地报告 (作为全量数据归档)
-    tunnel_info = "Tor 匿名网络" if USE_TOR else "Vercel Edge 反代"
     report_path = "sideways_report.md"
     with open(report_path, "w", encoding="utf-8", errors="ignore") as f:
-        f.write("# 📊 币安 USDT 永续合约【横盘爆发雷达: 深度动量追踪】\n\n")
-        f.write(f"> **生成时间**: {bj_time.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
-        f.write(f"> **运算规则**: 追溯过去 {LIMIT} 根 `{INTERVAL}` K线，BBW < **{BBW_THRESHOLD*100:.1f}%**。\n")
-        f.write(f"> **网络隧道**: `{tunnel_info}`\n\n")
-
-        f.write("| 排名 | 合约标的 | 极致缩圈 | BBW (趋势) | 历史名次链 | 霸榜次数 | 24h OI | TradingView |\n")
-        f.write("|---|---|---|---|---|---|---|---|\n")
-
+        f.write("# 📊 币安 USDT 永续合约【横盘爆发雷达】\n\n")
+        f.write(f"> **生成时间**: {bj_time.strftime('%Y-%m-%d %H:%M:%S')} | **排序规则**: 币种名称升序\n\n")
+        f.write("| 排名 | 合约标的 | Ratio | OI | MC | 极致缩圈 | BBW | 24h OI% | TradingView |\n")
+        f.write("|---|---|---|---|---|---|---|---|---|\n")
         for i, r in enumerate(valid_results):
-            sym = r["symbol"]
-            dur = f'{r["duration"]} 根'
-            curr_bbw = r["amplitude"]
-            oi_change = f'{r.get("oi_change_24h_pct", 0):+.2f}%'
+            f.write(f"| {i+1} | **{r['symbol']}** | **{r.get('oi_mc_ratio',0):.2f}** | {format_number(r.get('oi_value',0))} | {format_number(r.get('mc_value',0))} | {r['duration']} 根 | {r['amplitude']*100:.2f}% | {r.get('oi_change_24h_pct',0):+.1f}% | [直达](https://www.coinglass.com/tv/zh/Binance_{r['symbol']}) |\n")
 
-            # 动量提取
-            h = history.get(sym, {})
-            last_bbw = h.get("last_bbw", curr_bbw)
-            bbw_trend = "💠收紧" if curr_bbw < last_bbw else "⚠️走宽" if curr_bbw > last_bbw else "➖走平"
-            chain = " → ".join([str(c) for c in h.get("rank_chain", [])]) or "New"
-            sticky = f"{h.get('on_board_count', 0)} 次"
-
-            link = f"[直达](https://www.coinglass.com/tv/zh/Binance_{sym})"
-            f.write(f"| {i+1} | **{sym}** | **{dur}** | {curr_bbw*100:.2f}%({bbw_trend}) | `{chain}` | {sticky} | **{oi_change}** | {link} |\n")
-
-        if not valid_results:
-             f.write("| - | 当前全网无极端横盘标的 | - | - | - | - | - | - |\n")
-
-    print(f"\n[OK] 全量报告已归档至: {report_path}")
-
-    # 2. 推送到飞书
-    all_prices_map = {r["symbol"]: r["price"] for r in results} # 包含未上榜的最新价格用于判断突破
+    # 推送飞书
+    all_prices_map = {r["symbol"]: r["price"] for r in results}
     notify_feishu(valid_results, bj_time, history, all_prices_map)
-
-    # 3. 覆盖写入本次历史记录，供下次执行作对比
     save_history(valid_results, history)
 
 if __name__ == "__main__":
