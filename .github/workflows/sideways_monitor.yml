@@ -21,7 +21,10 @@ jobs:
         python-version: '3.11'
 
     - name: 安装依赖
-      run: pip install requests pandas numpy
+      run: pip install requests pandas numpy playwright
+
+    - name: 安装 Playwright 浏览器
+      run: playwright install chromium --with-deps
 
     - name: 启动横盘扫描引擎 (通过 Vercel 东京反代)
       env:

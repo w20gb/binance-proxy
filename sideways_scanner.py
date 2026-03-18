@@ -189,8 +189,12 @@ async def fetch_coinglass_market_data():
     results = {}
 
     async with async_playwright() as p:
-        # 遵循协议 Rule 17: 本地优先复用 Edge/Chrome 实现秒开
-        browser = await p.chromium.launch(headless=True, channel="msedge")
+        # 遵循协议 Rule 17: 本地优先复用 Edge 实现秒开，GitHub Action 则回退到标准 Chromium
+        try:
+            browser = await p.chromium.launch(headless=True, channel="msedge")
+        except:
+            browser = await p.chromium.launch(headless=True)
+
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
