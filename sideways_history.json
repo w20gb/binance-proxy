@@ -2,189 +2,184 @@
     "ACHUSDT": {
         "rank_chain": [
             1,
+            1,
             1
         ],
-        "on_board_count": 2,
-        "last_bbw": 0.03565670204021525,
-        "last_price": 0.006483,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 3,
+        "last_bbw": 0.033151482212987866,
+        "last_price": 0.006506,
+        "last_seen": "26-03-26 19:52"
     },
     "ASTERUSDT": {
         "rank_chain": [
             2,
             2,
-            2,
             3,
+            2,
             2
         ],
-        "on_board_count": 61,
-        "last_bbw": 0.009838592696786552,
-        "last_price": 0.6615,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 62,
+        "last_bbw": 0.009349203218345361,
+        "last_price": 0.6613,
+        "last_seen": "26-03-26 19:52"
     },
     "ATUSDT": {
         "rank_chain": [
+            4,
+            4,
+            4,
             3,
-            4,
-            4,
-            4,
             3
         ],
-        "on_board_count": 62,
-        "last_bbw": 0.03696224009759666,
-        "last_price": 0.143,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 63,
+        "last_bbw": 0.03944332297702915,
+        "last_price": 0.14298,
+        "last_seen": "26-03-26 19:52"
     },
     "B2USDT": {
         "rank_chain": [
+            5,
+            5,
+            5,
             4,
-            5,
-            5,
-            5,
             4
         ],
-        "on_board_count": 162,
-        "last_bbw": 0.014792386937884969,
-        "last_price": 0.7628,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 163,
+        "last_bbw": 0.01502903265590634,
+        "last_price": 0.7594,
+        "last_seen": "26-03-26 19:52"
     },
     "BCHUSDT": {
         "rank_chain": [
+            6,
+            6,
+            6,
             5,
-            6,
-            6,
-            6,
             5
         ],
-        "on_board_count": 14,
-        "last_bbw": 0.03612434068265397,
-        "last_price": 460.44,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 15,
+        "last_bbw": 0.035159962100356476,
+        "last_price": 459.62,
+        "last_seen": "26-03-26 19:52"
     },
     "BNBUSDT": {
         "rank_chain": [
+            7,
+            7,
+            7,
             6,
-            7,
-            7,
-            7,
             6
         ],
-        "on_board_count": 21,
-        "last_bbw": 0.047164937284575076,
-        "last_price": 625.29,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 22,
+        "last_bbw": 0.04448760910692885,
+        "last_price": 626.35,
+        "last_seen": "26-03-26 19:52"
     },
     "BTCUSDT": {
         "rank_chain": [
             8,
+            7,
             7
         ],
-        "on_board_count": 2,
-        "last_bbw": 0.05031621871489639,
-        "last_price": 68414.4,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 3,
+        "last_bbw": 0.04921618590689338,
+        "last_price": 68580.6,
+        "last_seen": "26-03-26 19:52"
     },
     "CAKEUSDT": {
         "rank_chain": [
             9,
+            8,
             8
         ],
-        "on_board_count": 2,
-        "last_bbw": 0.04651062000566521,
-        "last_price": 1.3963,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 3,
+        "last_bbw": 0.0447823182765925,
+        "last_price": 1.3984,
+        "last_seen": "26-03-26 19:52"
     },
     "FFUSDT": {
         "rank_chain": [
-            8,
             9,
             8,
             10,
+            9,
             9
         ],
-        "on_board_count": 144,
-        "last_bbw": 0.025050198190049597,
-        "last_price": 0.07054,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 145,
+        "last_bbw": 0.026469895522224438,
+        "last_price": 0.07046,
+        "last_seen": "26-03-26 19:52"
     },
     "GPSUSDT": {
         "rank_chain": [
-            9,
             10,
             9,
             11,
+            10,
             10
         ],
-        "on_board_count": 53,
-        "last_bbw": 0.030625391663990493,
-        "last_price": 0.007557,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 54,
+        "last_bbw": 0.028956477562723765,
+        "last_price": 0.007611,
+        "last_seen": "26-03-26 19:52"
     },
     "KSMUSDT": {
         "rank_chain": [
             10,
             12,
+            11,
             11
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.03249601292914727,
-        "last_price": 4.298,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 4,
+        "last_bbw": 0.032125492323329743,
+        "last_price": 4.266,
+        "last_seen": "26-03-26 19:52"
     },
     "LSKUSDT": {
         "rank_chain": [
+            12,
             12
         ],
-        "on_board_count": 1,
-        "last_bbw": 0.046955112672270906,
-        "last_price": 0.1262,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 2,
+        "last_bbw": 0.04565825831042491,
+        "last_price": 0.1264,
+        "last_seen": "26-03-26 19:52"
     },
     "LUNA2USDT": {
         "rank_chain": [
             12,
             12,
-            12,
+            13,
             13,
             13
         ],
-        "on_board_count": 10,
-        "last_bbw": 0.039623757847451334,
-        "last_price": 0.05828,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 11,
+        "last_bbw": 0.03711961337426314,
+        "last_price": 0.05847,
+        "last_seen": "26-03-26 19:52"
     },
     "OGUSDT": {
         "rank_chain": [
             16,
-            16,
             15,
             15,
+            14,
             14
         ],
-        "on_board_count": 10,
-        "last_bbw": 0.03194591551282381,
-        "last_price": 2.595,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 11,
+        "last_bbw": 0.030245782344584016,
+        "last_price": 2.59,
+        "last_seen": "26-03-26 19:52"
     },
     "RVNUSDT": {
         "rank_chain": [
+            15,
             15
         ],
-        "on_board_count": 1,
-        "last_bbw": 0.043017556393844025,
-        "last_price": 0.00544,
-        "last_seen": "26-03-26 18:56"
-    },
-    "SCRTUSDT": {
-        "rank_chain": [
-            16,
-            16,
-            16
-        ],
-        "on_board_count": 3,
-        "last_bbw": 0.05103406802524877,
-        "last_price": 0.07652,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 2,
+        "last_bbw": 0.03959798078140256,
+        "last_price": 0.00543,
+        "last_seen": "26-03-26 19:52"
     },
     "SOPHUSDT": {
         "rank_chain": [
@@ -192,106 +187,118 @@
             17,
             17,
             17,
-            17
+            16
         ],
-        "on_board_count": 5,
-        "last_bbw": 0.03745775770499329,
-        "last_price": 0.008706,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 6,
+        "last_bbw": 0.03365650686368354,
+        "last_price": 0.008702,
+        "last_seen": "26-03-26 19:52"
     },
     "SPELLUSDT": {
         "rank_chain": [
             18,
-            18
+            18,
+            17
         ],
-        "on_board_count": 2,
-        "last_bbw": 0.043308925227159595,
-        "last_price": 0.0001662,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 3,
+        "last_bbw": 0.041757490978176263,
+        "last_price": 0.0001664,
+        "last_seen": "26-03-26 19:52"
     },
     "SPKUSDT": {
         "rank_chain": [
             18,
             18,
-            18,
             19,
-            19
+            19,
+            18
         ],
-        "on_board_count": 51,
-        "last_bbw": 0.036442827771200434,
-        "last_price": 0.02035,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 52,
+        "last_bbw": 0.03418320305042169,
+        "last_price": 0.02039,
+        "last_seen": "26-03-26 19:52"
     },
     "TONUSDT": {
         "rank_chain": [
-            20
+            20,
+            19
         ],
-        "on_board_count": 1,
-        "last_bbw": 0.04819721623405518,
-        "last_price": 1.2774,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 2,
+        "last_bbw": 0.04775068053128549,
+        "last_price": 1.2738,
+        "last_seen": "26-03-26 19:52"
     },
     "TRXUSDT": {
         "rank_chain": [
             20,
             20,
-            20,
             21,
-            21
+            21,
+            20
         ],
-        "on_board_count": 39,
-        "last_bbw": 0.02199766829108161,
-        "last_price": 0.31047,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 40,
+        "last_bbw": 0.02385140114739608,
+        "last_price": 0.30911,
+        "last_seen": "26-03-26 19:52"
     },
     "TURTLEUSDT": {
         "rank_chain": [
             21,
             21,
-            21,
             22,
-            22
+            22,
+            21
         ],
-        "on_board_count": 19,
-        "last_bbw": 0.03277446226540167,
-        "last_price": 0.03977,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 20,
+        "last_bbw": 0.03535001823101869,
+        "last_price": 0.0396,
+        "last_seen": "26-03-26 19:52"
     },
     "USTCUSDT": {
         "rank_chain": [
             22,
             22,
-            22,
             23,
+            23,
+            22
+        ],
+        "on_board_count": 63,
+        "last_bbw": 0.031714389218777304,
+        "last_price": 0.004627,
+        "last_seen": "26-03-26 19:52"
+    },
+    "VINEUSDT": {
+        "rank_chain": [
             23
         ],
-        "on_board_count": 62,
-        "last_bbw": 0.03253219812828558,
-        "last_price": 0.004632,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 1,
+        "last_bbw": 0.04649706866374558,
+        "last_price": 0.01621,
+        "last_seen": "26-03-26 19:52"
     },
     "WETUSDT": {
         "rank_chain": [
             24,
-            24,
             23,
+            24,
             24,
             24
         ],
-        "on_board_count": 16,
-        "last_bbw": 0.034456284304551874,
-        "last_price": 0.10173,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 17,
+        "last_bbw": 0.029652082932754707,
+        "last_price": 0.10171,
+        "last_seen": "26-03-26 19:52"
     },
     "XVSUSDT": {
         "rank_chain": [
             25,
             25,
+            25,
             25
         ],
-        "on_board_count": 3,
-        "last_bbw": 0.04220821460929431,
-        "last_price": 2.663,
-        "last_seen": "26-03-26 18:56"
+        "on_board_count": 4,
+        "last_bbw": 0.037280936435193396,
+        "last_price": 2.672,
+        "last_seen": "26-03-26 19:52"
     }
 }
